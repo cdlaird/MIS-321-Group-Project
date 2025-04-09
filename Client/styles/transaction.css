@@ -1,0 +1,76 @@
+header {
+    background-color: #e67631; 
+    padding: 20px;
+    text-align: left;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+
+  #addTransactionBtn {
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: none;
+    background-color: #e67631;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    align-self: flex-end; 
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  button {
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: none;
+    background-color: #e67631; 
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 80%; 
+    max-width: 500px; 
+    margin: 0 auto;
+  }
+
+  .modal-footer button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #e67631;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  .modal-body input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+  

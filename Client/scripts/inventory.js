@@ -1,5 +1,5 @@
 let myInventory = [];
-const url = "your-api-url"; // API URL will go here
+const url = "apiurl"; // API URL will go here
 
 async function handleOnLoad() {
   await getAllInventory();
