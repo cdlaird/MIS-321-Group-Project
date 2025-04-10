@@ -14,7 +14,7 @@ header {
     padding: 0;
   }
 
-  #addTransactionBtn {
+ .btn{
     padding: 10px 15px;
     margin: 10px 0;
     border: none;
@@ -43,6 +43,10 @@ header {
     border-radius: 5px;
   }
 
+  .btn:hover {
+    background-color: #d56d2c;
+  }
+  
   .modal-content {
     background-color: #fff;
     padding: 20px;
@@ -74,3 +78,26 @@ header {
     padding: 20px;
   }
   
+  #myInput {
+    width: 200px;
+    padding: 5px 15px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  /* .container-mt-5{
+        width: 90%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        position: relative; 
+          display: flex;
+          flex-direction: column; 
+          justify-content: flex-start;
+      
+  } */

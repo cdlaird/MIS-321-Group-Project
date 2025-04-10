@@ -106,3 +106,14 @@ body {
   .delete-btn:hover {
     background-color: #e53935;
   }
+
+  #myInput {
+    width: 200px;
+    padding: 5px 15px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
