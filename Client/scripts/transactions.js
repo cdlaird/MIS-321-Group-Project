@@ -2,6 +2,8 @@
 const url = "apiurlgoeshere"; 
 
 
+// add a filter report for transactions
+
 const addTransactionBtn = document.getElementById("addTransactionBtn");
 const customerIdInput = document.getElementById("customerId");
 const nameInput = document.getElementById("name");
@@ -69,4 +71,13 @@ function searchTable(){
     }
 
 }
+
+  function openNav() {
+    document.getElementById("mySidepanel").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidepanel").style.width = "0";
+  }
+
 
