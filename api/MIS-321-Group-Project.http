@@ -1,0 +1,6 @@
+@MIS_321_Group_Project_HostAddress = http://localhost:5008
+
+GET {{MIS_321_Group_Project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

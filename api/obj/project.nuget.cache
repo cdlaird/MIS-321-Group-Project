@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Yunqywt16tE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\MIS-321-Group-Project.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\cdlai\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.1\\microsoft.aspnetcore.openapi.9.0.1.nupkg.sha512",
+    "C:\\Users\\cdlai\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
