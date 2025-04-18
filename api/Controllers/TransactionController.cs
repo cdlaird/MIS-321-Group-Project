@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using API.models;
 
 namespace API.Controllers
 {
@@ -24,21 +25,22 @@ namespace API.Controllers
         {
             Transaction T = new();
             Transaction transaction = await T.GetATransactionAsync(id);
+            return transaction;
         }
 
         // POST api/<TransactionController>/{id}
         [HttpPost]
         public async Task Post([FromBody] Transaction value){
             Transaction T = new();
-            await T.insertTransactionAsync();
+            await T.insertTransactionAsync(value);
         }
 
-        // PUT api/<TransactionController>/{id}
-        public async Task Put(string id, [FromBody]){
-            // come back to this method
-            //used to update or completely erase a resource.
-            //not sure it is necessary for Transactions in this project
-        }
+        // // PUT api/<TransactionController>/{id}
+        // public async Task Put(string id, [FromBody]){
+        //     // come back to this method
+        //     //used to update or completely erase a resource.
+        //     //not sure it is necessary for Transactions in this project
+        // }
 
         // DELETE api/<ShopController>/5
         [HttpDelete("{id}")]
