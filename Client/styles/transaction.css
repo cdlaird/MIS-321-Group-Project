@@ -6,13 +6,17 @@ header {
     font-size: 36px;
     font-weight: bold;
     position: relative;
+    z-index: 100;
   }
 
+
+
   body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'merriweather', serif;
+    background-color: #fefaf6;
     margin: 0;
     padding: 0;
+    transition: margin-right 0.3s ease;
   }
 
  .btn{
@@ -97,7 +101,7 @@ header {
     z-index: 1000;
     top: 0;
     right: 0;
-    background-color: #ddd; 
+    background-color: #e67631; 
     overflow-x: hidden; 
     transition: 0.3s; 
     padding-top: 60px; 
@@ -113,7 +117,7 @@ header {
   }
   
   .sidepanel a:hover {
-    color: #f1f1f1;
+    color: #dedede;
   }
   
   .sidepanel .closebtn {
@@ -124,15 +128,34 @@ header {
   }
   
   .openbtn {
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
-    background-color: #444;
+    background-color: #e67631;
     color: white;
-    padding: 10px 15px;
+    padding: 10px 15px 25px;
     border: none;
     position: absolute;  
     right: 20px;         
-    top: 40%;            /* Center it vertically in the header */
+    top: 40%;          
     transform: translateY(-50%)
+  }
+ 
+
+  body.sidepanel-open {
+    margin-right: 250px; 
+  }
+
+  .transaction-container {
+    transition: margin-right 0.3s ease; 
+    margin-right: 0;
+  }
+
+
+  body.sidepanel-open .transaction-container {
+    margin-right: 250px; 
+  }
+
+  body.sidepanel-open .openbtn {
+    display: none;
   }
  
