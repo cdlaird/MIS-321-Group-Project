@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MySqlConnector;
 using API.Database;
+using System.Diagnostics.Eventing.Reader;
+using MIS_321_Group_Project.api.Models;
+using MySqlConnector;
 
 namespace API.models
 {
@@ -15,7 +17,6 @@ namespace API.models
         
         public int transactionID  {get; set;}
         public int custid {get; set;}
-        public int bookid  {get; set;}
         public DateTime datetime {get; set;}
 
         //methods for transactions Create, Read Update, Delete (CRUD)
@@ -36,8 +37,7 @@ namespace API.models
                 myTransactions.Add(new Transaction(){
                     transactionID = reader.GetInt32(0),
                     custid = reader.GetInt32(1),
-                    bookid = reader.GetInt32(2),
-                    datetime = reader.GetDateTime(3)
+                    datetime = reader.GetDateTime(2)
                 });
             }
             return myTransactions;
@@ -72,16 +72,39 @@ namespace API.models
         }
 
         //add in a transaction
-        public async Task insertTransactionAsync(Transaction myTransaction){
+        public async Task insertTransactionAsync(Transaction myTransaction, List<InventoryItem> myBooks){
             string sql ="INSERT INTO `mvjb2fks5fyrys10`.`transaction` (`datetime`, `custid`) VALUES (@datetime, @custid);";
             List<MySqlParameter> parms = new();
             parms.Add(new MySqlParameter("@transactionID", MySqlDbType.Int32) {Value = myTransaction.transactionID});
             parms.Add(new MySqlParameter("@custid",MySqlDbType.Int32){Value = myTransaction.custid});
-            parms.Add(new MySqlParameter("@bookid",MySqlDbType.Int32){Value = myTransaction.bookid});
             parms.Add(new MySqlParameter("@datetime",MySqlDbType.DateTime){Value = myTransaction.datetime});
             await TransactionsNoReturnSql(DB.cs, sql, parms);
             System.Console.WriteLine("Completed insert transaction async");
         }
+
+    public async Task InsertBridge(List<InventoryItem> myBooks) {
+        foreach(InventoryItem book in myBooks) {
+
+            using var connection = new MySqlConnection(DB.cs);
+
+            await connection.OpenAsync();
+
+            string sql = $"INSERT INTO `mvjb2fks5fyrys10`.`bridge` (`transactionid`, `bookid`) VALUES (@transactionid, @bookid);";
+
+            using var command = new MySqlCommand(sql, connection);
+
+            command.Parameters.AddWithValue("@bookid", book.Id);
+
+            command.Prepare();
+
+            command.ExecuteNonQueryAsync();
+
+            connection.Close();
+
+        }
+
+}
+ 
 
         //delete a transaction
         public async Task deleteTransactionAsync(string id){
