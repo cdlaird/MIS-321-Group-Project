@@ -1,82 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles/inventory.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventory</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+AU+QLD:wght@100..400&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=book_5" />
+  <link rel="stylesheet" href="./styles/inventory.css" />
 </head>
-<body onload="handleOnLoad()">
-    <header class="header">
-        <h1>3rd & Chester</h1>
-    </header>
+<body>
+  <header class="header">
+    <h1>3rd & Chester</h1>
+    <button class="openbtn" onclick="openNav()">&#9776;</button>
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="transactions.html">Transactions</a>
+        <a href="loyaltyprogram.html">Customers</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+</header>
+<body>
 
-    <div class="main-content">
-        <h2>Inventory Management</h2>
-        <input type="text" id ="myInput" onkeyup="searchTable()" placeholder="Search Inventory...">
-        <div class="inventory-container">
-            <table id="inventory-table">
-                <thead>
-                    <tr>
-                        <th>Cover</th>
-                        <th>ISBN</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Price</th>
-                        <th>Page Count</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-            <button id="add-btn" onclick="showForm()">Add Item</button>
-        </div>
+  <main class="p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Inventory Management</h2>
+      <button class="btn" data-bs-toggle="modal" data-bs-target="#inventoryModal">Add Inventory</button>
     </div>
+    <input type="text" id ="myInput" onkeyup="searchTable()" placeholder="Search Inventory...">
 
-   <!-- I want this form to be hidden until the add button is clicked -->
-        <form id="book-form" onsubmit="return false" style="display: none;">
+    <div id="inventory-container" class="d-flex flex-wrap gap-4"></div>
+  </main>
+
+  <div class="modal fade" id="inventoryModal" tabindex="-1" aria-labelledby="inventoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="inventoryForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="inventoryModalLabel">Book Information</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <input type="hidden" id="editBookId" />
+
             <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" placeholder="Enter book title">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" id="title" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label for="author" class="form-label">Author</label>
-                <input type="text" class="form-control" id="author" placeholder="Enter author's name">
+              <label for="author" class="form-label">Author</label>
+              <input type="text" id="author" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label for="isbn" class="form-label">ISBN</label>
-                <input type="text" class="form-control" id="isbn" placeholder="Enter ISBN number">
+              <label for="isbn" class="form-label">ISBN</label>
+              <input type="text" id="isbn" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label for="cover" class="form-label">Cover Image</label>
-                <input type="file" class="form-control" id="cover">
+              <label for="price" class="form-label">Price</label>
+              <input type="number" id="price" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="price" placeholder="Enter price">
+              <label for="pageCount" class="form-label">Page Count</label>
+              <input type="number" id="pageCount" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label for="page-count" class="form-label">Page Count</label>
-                <input type="number" class="form-control" id="page-count" placeholder="Enter number of pages">
+              <label for="quantity" class="form-label">Quantity</label>
+              <input type="number" id="quantity" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label for="quantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity in stock">
+              <label for="cover" class="form-label">Cover Image URL</label>
+              <input type="url" id="cover" class="form-control" placeholder="https://..." />
             </div>
+          </div>
 
-            <button onclick="handleAdd()" type="button" class="btn btn-light">Save Book</button>
-            <button onclick="hideForm()" type="button" class="btn btn-secondary">Cancel</button>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
         </form>
+      </div>
     </div>
+  </div>
 
-    <script src="inventory.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./scripts/inventory.js"></script>
 </body>
 </html>

@@ -1,118 +1,133 @@
-let myInventory = [];
-const url = "apiurl"; // API URL will go here
+let books = [];
+const url = "https://localhost:7283/api/inventory";
+const container = document.getElementById("inventory-container");
+const modal = new bootstrap.Modal(document.getElementById("inventoryModal"));
 
-async function handleOnLoad() {
-  await getAllInventory();
-  renderTable();
-}
+// Form references
+const form = document.getElementById("inventoryForm");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const isbnInput = document.getElementById("isbn");
+const priceInput = document.getElementById("price");
+const pageCountInput = document.getElementById("pageCount");
+const quantityInput = document.getElementById("quantity");
+const coverInput = document.getElementById("cover");
+const editIdInput = document.getElementById("editBookId");
 
-async function getAllInventory() {
-  let response = await fetch(url);
-  myInventory = await response.json();
-  console.log(myInventory);
-}
+async function renderBooks() {
+  const response = await fetch(url);
+  books = await response.json();
+  container.innerHTML = "";
 
-function renderTable() {
-  let html = `
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Cover</th>
-                <th>ISBN</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Page Count</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>`;
+  books.forEach((book) => {
+    const card = document.createElement("div");
+    card.className = "card book-card";
+    card.style.width = "200px";
 
-  myInventory.forEach((book) => {
-    if (!book.isDeleted) {
-      html += `<tr>
-                <td><img src="${book.coverUrl}" alt="Book Cover" style="width: 50px; height: 75px;"></td>
-                <td>${book.isbn}</td>
-                <td>${book.title}</td>
-                <td>${book.author}</td>
-                <td>$${parseFloat(book.price).toFixed(2)}</td>
-                <td>${book.pageCount}</td>
-                <td>${book.quantity}</td>
-                <td><button class="btn btn-danger" onclick="handleDelete('${book.isbn}')">Delete</button></td>
-               </tr>`;
-    }
+    card.innerHTML = `
+      <img src="${book.cover}" class="card-img-top" alt="${book.title} cover">
+      <div class="card-body">
+        <h5 class="card-title">${book.title}</h5>
+        <p class="card-text">
+          <strong>Author:</strong> ${book.author}<br>
+          <strong>ISBN:</strong> ${book.isbn}<br>
+          <strong>Price:</strong> $${book.price}<br>
+          <strong>Pages:</strong> ${book.pageCount}<br>
+          <strong>Qty:</strong> ${book.quantity}
+        </p>
+        <button class="btn btn-sm btn-warning me-2" onclick="editBook('${book.id}')">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteBook('${book.id}')">Delete</button>
+      </div>
+    `;
+
+    container.appendChild(card);
   });
-
-  html += `</tbody></table>`;
-  document.getElementById("inventory-table").innerHTML = html;
 }
 
-async function handleDelete(isbn) {
-  await fetch(url + "/" + isbn, {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
-  handleOnLoad();
-}
+async function addBook(event) {
+  event.preventDefault();
 
-function showForm() {
-  // should show the form when Add Item button is clicked
-  document.getElementById("add-book-form").style.display = "block";
-}
-
-function hideForm() {
-  // Hide the form when cancel button is clicked
-  document.getElementById("add-book-form").style.display = "none";
-}
-
-async function handleAdd() {
-  let newBook = {
-    cover: document.getElementById("cover").files[0], 
-    isbn: document.getElementById("isbn").value,
-    title: document.getElementById("title").value,
-    author: document.getElementById("author").value,
-    price: document.getElementById("price").value,
-    pageCount: document.getElementById("page-count").value,
-    quantity: document.getElementById("quantity").value,
+  const newBook = {
+    title: titleInput.value,
+    author: authorInput.value,
+    isbn: isbnInput.value,
+    price: parseFloat(priceInput.value).toFixed(2),
+    pageCount: parseInt(pageCountInput.value),
+    quantity: parseInt(quantityInput.value),
+    cover: coverInput.value,
   };
 
+  try {
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBook),
+    });
 
-  newBook.coverUrl = URL.createObjectURL(newBook.cover);
-
-
-  await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(newBook),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
-
-  // Hide the form again after adding the book
-  hideForm();
-
-  
-  handleOnLoad();
+    form.reset();
+    modal.hide();
+    await renderBooks();
+  } catch (error) {
+    console.error("Error adding book:", error);
+  }
 }
-function searchTable(){
-    const input = document.getElementById("myInput");
-    const filter = input.value.toUpperCase();
-    const table = document.getElementById("inventory-table");
-    const tr = table.getElementsByTagName("tr");
 
-    for(let i = 0; i < tr.length; i++){
-        const td = tr[i].getElementsByTagName("td")[0];
-        if(td){
-            txtValue = td.textContent || td.innerText;
-            if(txtValue.toUpperCase().indexOf(filter)> -1){
-                tr[i].style.display = "";
-            }
-            else{
-                tr[i].style.display = "none";
-            }
-        } 
-    }
+async function editBook(id) {
+  const response = await fetch(`${url} + "/" +${id}`);
+  const book = await response.json();
 
+  editIdInput.value = book.id;
+  titleInput.value = book.title;
+  authorInput.value = book.author;
+  isbnInput.value = book.isbn;
+  priceInput.value = book.price;
+  pageCountInput.value = book.pageCount;
+  quantityInput.value = book.quantity;
+  coverInput.value = book.cover;
+
+  modal.show();
+}
+async function saveEditedBook(event) {
+  event.preventDefault();
+
+  const id = editIdInput.value;
+
+  const updatedBook = {
+    title: titleInput.value,
+    author: authorInput.value,
+    isbn: isbnInput.value,
+    price: parseFloat(priceInput.value).toFixed(2),
+    pageCount: parseInt(pageCountInput.value),
+    quantity: parseInt(quantityInput.value),
+    cover: coverInput.value,
+  };
+
+  try {
+    await fetch(`${url}/${updatedBook.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedBook),
+    });
+
+    form.reset();
+    modal.hide();
+    await renderBooks();
+  } catch (error) {
+    console.error("Error saving book:", error);
+  }
+}
+
+async function deleteBook(id) {
+  await fetch(`${url}/${id}`, { method: "DELETE" });
+  await renderBooks();
+}
+
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+  document.body.classList.add("sidepanel-open");
+}
+
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+  document.body.classList.remove("sidepanel-open");
 }

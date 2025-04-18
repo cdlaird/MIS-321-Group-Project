@@ -1,0 +1,67 @@
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: #fefaf6;
+    color: #333;
+  }
+
+  .header {
+    text-align: center;
+    padding: 40px 20px 10px;
+  }
+
+  .header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 3rem;
+    margin-bottom: 0.3rem;
+    color:#e67631;
+  }
+
+  .subtext {
+    font-size: 1.2rem;
+    color: #7f7f7f;
+  }
+
+  .card-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+  }
+
+  .nav-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .nav-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .nav-card .material-icons {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #e67631;
+  }
+
+  .nav-card h4 {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+  }

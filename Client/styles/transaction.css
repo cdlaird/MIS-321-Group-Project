@@ -138,24 +138,4 @@ header {
     right: 20px;         
     top: 40%;          
     transform: translateY(-50%)
-  }
- 
-
-  body.sidepanel-open {
-    margin-right: 250px; 
-  }
-
-  .transaction-container {
-    transition: margin-right 0.3s ease; 
-    margin-right: 0;
-  }
-
-
-  body.sidepanel-open .transaction-container {
-    margin-right: 250px; 
-  }
-
-  body.sidepanel-open .openbtn {
-    display: none;
-  }
- 
+  } 

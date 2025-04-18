@@ -10,4 +10,3 @@
 
 // Table keeps track of book title, author, genre, value, pagecount, etc
 
-//https://developer.mescius.com/blogs/how-to-build-a-javascript-sales-dashboard-application

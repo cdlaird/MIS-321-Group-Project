@@ -1,0 +1,78 @@
+body {
+    font-family: 'merriweather', serif;
+    background-color: #fefaf6;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    font-family: 'merriweather', serif;
+    background-color: #e67631;
+    padding: 20px;
+    color: white;
+    font-size: 32px;
+    text-align: left;
+  }
+
+  .profile-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    border: 2px solid #f0e6dc;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  }
+
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .profile-header h2 {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .profile-header p {
+    font-size: 16px;
+    color: #555;
+  }
+
+  .profile-info {
+    font-size: 18px;
+    line-height: 1.8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .material-icons-outlined {
+    vertical-align: middle;
+  }
+
+  .profile-info p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    text-align: center;
+  }
+
+  .info-label {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .tier-badge {
+    display: inline-block;
+    background-color: #e67631;
+    color: rgb(6, 5, 5);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-left: 10px;
+  }
