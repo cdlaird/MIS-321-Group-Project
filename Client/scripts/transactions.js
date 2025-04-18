@@ -1,5 +1,4 @@
-
-const url = "apiurlgoeshere"; 
+const url = "https://localhost:7283/api/transaction"; 
 
 
 // add a filter report for transactions
@@ -23,7 +22,7 @@ addTransactionBtn.addEventListener('click', async function() {
   try {
     //should hopefully post once connected to backend
     
-    const response = await fetch(url + "/add-transaction", {
+    const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(newTransaction),
       headers: {
@@ -73,10 +72,13 @@ function searchTable(){
 }
 
   function openNav() {
+    document.body.classList.add('sidepanel-open');
     document.getElementById("mySidepanel").style.width = "250px";
+    document.getElementById("mySidepanel").appendChild(openBtn);
   }
 
   function closeNav() {
+    document.body.classList.remove('sidepanel-open')
     document.getElementById("mySidepanel").style.width = "0";
   }
 
