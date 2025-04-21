@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MIS_321_Group_Project.api.Models;
 using api;
 
-namespace MIS_321_Group_Project.api.Controllers
+namespace api.controllers
 {
     [ApiController]
     [Route("api/[controller]")]

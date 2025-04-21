@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MIS_321_Group_Project.api.Models
+namespace api.models
 {
     public class Customer
     {
