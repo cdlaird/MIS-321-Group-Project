@@ -94,7 +94,7 @@ namespace api.Models
 
             using var command = new MySqlCommand(sql, connection);
 
-            command.Parameters.AddWithValue("@bookid", book.Id);
+            command.Parameters.AddWithValue("@bookid", book.BookId);
 
             command.Prepare();
 

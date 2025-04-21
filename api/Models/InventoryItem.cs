@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MySqlConnector;
 
 namespace api.Models
 {
@@ -20,7 +21,7 @@ namespace api.Models
         public string IsDeleted { get; set; }
 
 
-         private readonly Database _db = new();
+         private readonly database _db = new();
 
           public async Task<List<InventoryItem>> GetAllAsync()
         {
@@ -30,7 +31,7 @@ namespace api.Models
                   FROM book
                  WHERE isdeleted = 'n';";
             var list = new List<InventoryItem>();
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             await using var r = await cmd.ExecuteReaderAsync();
@@ -59,7 +60,7 @@ namespace api.Models
                   FROM book
                  WHERE bookid = @id
                    AND isdeleted = 'n';";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@id", id);
@@ -90,7 +91,7 @@ namespace api.Models
                 VALUES
                     (@isbn, @title, @first, @last,
                      @genre, @pagecount, @instock, 'n');";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@isbn",      it.ISBN);
@@ -115,7 +116,7 @@ namespace api.Models
                        pagecount    = @pagecount,
                        instock      = @instock
                  WHERE bookid = @id;";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@isbn",      u.ISBN);
@@ -135,7 +136,7 @@ namespace api.Models
                 UPDATE book
                    SET isdeleted = 'y'
                  WHERE bookid   = @id;";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@id", id);

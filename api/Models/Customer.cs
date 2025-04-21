@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using MySqlConnector;
 namespace api.Models
 {
     public class Customer
@@ -14,7 +14,7 @@ namespace api.Models
         public int Points { get; set; }
         public string IsDeleted { get; set; }
 
-   private readonly Database _db = new();
+   private readonly database _db = new();
 
         // Retrieve all customers
         public async Task<List<Customer>> GetAllAsync()
@@ -24,14 +24,14 @@ namespace api.Models
                   FROM customer
                  WHERE isdeleted = 'n';";
             var list = new List<Customer>();
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             await using var r = await cmd.ExecuteReaderAsync();
             while (await r.ReadAsync())
             {
                 list.Add(new Customer {
-                    CustId    = r.GetInt32("custid"),
+                    CustID    = r.GetInt32("custid"),
                     Phone     = r.GetString("phone"),
                     CustFirst = r.GetString("custfirst"),
                     CustLast  = r.GetString("custlast"),
@@ -50,7 +50,7 @@ namespace api.Models
                   FROM customer
                  WHERE custid = @id
                    AND isdeleted = 'n';";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@id", id);
@@ -58,7 +58,7 @@ namespace api.Models
             if (await r.ReadAsync())
             {
                 return new Customer {
-                    CustId    = r.GetInt32("custid"),
+                    CustID    = r.GetInt32("custid"),
                     Phone     = r.GetString("phone"),
                     CustFirst = r.GetString("custfirst"),
                     CustLast  = r.GetString("custlast"),
@@ -77,7 +77,7 @@ namespace api.Models
                     (phone, custfirst, custlast, points, isdeleted)
                 VALUES
                     (@phone, @first, @last, @points, 'n');";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@phone",  c.Phone);
@@ -97,7 +97,7 @@ namespace api.Models
                        custlast  = @last,
                        points    = @points
                  WHERE custid   = @id;";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@phone",  u.Phone);
@@ -115,7 +115,7 @@ namespace api.Models
                 UPDATE customer
                    SET isdeleted = 'y'
                  WHERE custid   = @id;";
-            await using var conn = new MySqlConnection(_db.Cs);
+            await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@id", id);

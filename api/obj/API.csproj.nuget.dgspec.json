@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cdlai\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+    "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj",
+        "projectName": "API",
+        "projectPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj",
+        "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> 13d2b4dac01d66ea5a4835079870cda13764336d
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -94,7 +111,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+>>>>>>> 13d2b4dac01d66ea5a4835079870cda13764336d
         }
       }
     }

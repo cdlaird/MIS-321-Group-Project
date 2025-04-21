@@ -2,7 +2,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+<<<<<<< HEAD
 
+=======
+// using api.Services;
+>>>>>>> 13d2b4dac01d66ea5a4835079870cda13764336d
 using api.Models;
 
 namespace api.Controllers
@@ -32,7 +36,7 @@ namespace api.Controllers
         public async Task<ActionResult> Post([FromBody] Customer c)
         {
             await new Customer().AddAsync(c);
-            return CreatedAtAction(nameof(Get), new { id = c.CustId }, c);
+            return CreatedAtAction(nameof(Get), new { id = c.CustID }, c);
         }
 
         // PUT: api/customer/{id}

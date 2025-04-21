@@ -2,7 +2,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 using api.Models;
+<<<<<<< HEAD
 
+=======
+// using API.Services;
+>>>>>>> 13d2b4dac01d66ea5a4835079870cda13764336d
 
 namespace api.Controllers
 {
@@ -25,6 +29,7 @@ private readonly AuthManager _auth = new AuthManager();
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] User user)
         {
+            
             bool valid = _auth.Login(user.Username, user.Password);
             return valid ? Ok("Login successful") : Unauthorized("Invalid credentials");
         }
