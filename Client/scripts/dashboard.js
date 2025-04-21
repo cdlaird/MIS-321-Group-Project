@@ -10,3 +10,13 @@
 
 // Table keeps track of book title, author, genre, value, pagecount, etc
 
+
+function openNav() {
+    document.getElementById("mySidepanel").style.width = "250px";
+    document.body.classList.add("sidepanel-open");
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidepanel").style.width = "0";
+    document.body.classList.remove("sidepanel-open");
+  }
