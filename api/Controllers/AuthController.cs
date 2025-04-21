@@ -1,27 +1,24 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
 using api.Models;
-<<<<<<< HEAD
-
-=======
-// using API.Services;
->>>>>>> 13d2b4dac01d66ea5a4835079870cda13764336d
-
+using api.services;
 namespace api.Controllers
+
+
+
 {
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
 
-private readonly AuthManager _auth = new AuthManager();
+        private readonly AuthManager _auth = new AuthManager();
+
         // POST: api/auth/register
         [HttpPost("register")]
-        
-       public async Task<IActionResult> Register([FromBody] User user)
+        public async Task<IActionResult> Register([FromBody] User user)
         {
-            _auth.Register(user.Username, user.Password);
+            await _auth.RegisterAsync(user.Username, user.Password);
             return Ok();
         }
 
@@ -29,8 +26,7 @@ private readonly AuthManager _auth = new AuthManager();
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] User user)
         {
-            
-            bool valid = _auth.Login(user.Username, user.Password);
+            bool valid = await _auth.LoginAsync(user.Username, user.Password);
             return valid ? Ok("Login successful") : Unauthorized("Invalid credentials");
         }
     }
