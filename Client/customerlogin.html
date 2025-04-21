@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>3rd & Chester Login</title>
+ 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/customerlogin.css">
+    </style>
+</head>
+<body>
+    <div class="form-container">
+
+        <form id="loginForm" class="active">
+          <h3>Customer Login</h3>
+    
+          <label for="username">Username</label>
+          <input type="text" placeholder="Username" id="username" required />
+    
+          <label for="password">Password</label>
+          <input type="password" placeholder="Password" id="password" required />
+    
+          <button type="submit">Log In</button>
+    
+          <div class="switch-form">
+            Don't have an account?
+            <a onclick="showRegister()">Create one</a>
+          </div>
+        </form>
+    
+        <form id="registerForm">
+          <h3>Create Account</h3>
+    
+          <label for="firstName">First Name</label>
+          <input type="text" placeholder="First Name" id="firstName" required />
+    
+          <label for="lastName">Last Name</label>
+          <input type="text" placeholder="Last Name" id="lastName" required />
+    
+          <label for="phone">Phone Number</label>
+          <input type="text" placeholder="Phone Number" id="phone" required />
+    
+          <label for="newUsername">Username</label>
+          <input type="text" placeholder="Username" id="newUsername" required />
+    
+          <label for="newPassword">Password</label>
+          <input type="password" placeholder="Password" id="newPassword" required />
+    
+          <button type="submit">Register</button>
+    
+          <div class="switch-form">
+            Already have an account?
+            <a onclick="showLogin()">Log in</a>
+          </div>
+        </form>
+      </div>
+        
+        
+        </div>
+    </form>
+    <script src="./scripts/customerlogin.js"></script>
+</body>
+</html>

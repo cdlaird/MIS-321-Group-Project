@@ -5,7 +5,6 @@ const url = "https://localhost:7283/api/transaction";
 
 const addTransactionBtn = document.getElementById("addTransactionBtn");
 const customerIdInput = document.getElementById("customerId");
-const nameInput = document.getElementById("name");
 const bookIdInput = document.getElementById("bookId");
 const transactionDateInput = document.getElementById("transactionDate");
 
@@ -14,7 +13,6 @@ addTransactionBtn.addEventListener('click', async function() {
 
   const newTransaction = {
     customerId: customerIdInput.value,
-    name: nameInput.value,
     bookId: bookIdInput.value,
     transactionDate: transactionDateInput.value,
   };

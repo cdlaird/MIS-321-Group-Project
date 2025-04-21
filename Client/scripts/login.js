@@ -1,3 +1,5 @@
+const url = "";
+
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
   
@@ -11,7 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
