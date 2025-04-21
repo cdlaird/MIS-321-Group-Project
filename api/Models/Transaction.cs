@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Database;
 using System.Diagnostics.Eventing.Reader;
-using MIS_321_Group_Project.api.Models;
+
 using MySqlConnector;
 
-namespace API.models
+namespace api.Models
 {
     public class Transaction
     {

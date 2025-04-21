@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using API.models;
-using MIS_321_Group_Project.api.Models;
+using api.Models;
 
-namespace API.Controllers
+
+namespace api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

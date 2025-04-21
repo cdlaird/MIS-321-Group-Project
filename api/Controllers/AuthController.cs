@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MIS_321_Group_Project.api.Models;
-using api;
 
-namespace api.controllers
+using api.Models;
+using api.Services;
+
+namespace api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

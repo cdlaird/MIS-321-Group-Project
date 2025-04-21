@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MIS_321_Group_Project.api.Models;
-using api;
 
-namespace MIS_321_Group_Project.api.Controllers
+using api.Services;
+using api.Models;
+
+namespace api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

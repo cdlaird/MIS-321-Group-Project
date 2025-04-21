@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace api.services
+using api.Models;
+namespace api.Services
 {
     public class CustomerManager
     {
@@ -18,7 +18,7 @@ namespace api.services
     {
         foreach (var customer in customers)
         {
-            if (customer.Id == id)
+            if (customer.ID == id)
             {
                 customer.Name = updated.Name;
                 customer.Phone = updated.Phone;
@@ -31,7 +31,7 @@ namespace api.services
     {
         foreach (var customer in customers)
         {
-            if (customer.Id == customerId)
+            if (customer.ID == customerId)
             {
                 customer.Points += points;
                 UpdateTier(customer);

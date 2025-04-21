@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace api
+using api.Models;
+namespace api.Services
 {
     public class AuthManager
     {
@@ -15,7 +15,7 @@ namespace api
         var newUser = new User
         {
             Username = username,
-            HashedPassword = hashed
+            Password = hashed
         };
         users.Add(newUser);
     }
@@ -26,7 +26,7 @@ namespace api
         {
             if (user.Username == username)
             {
-                return VerifyPassword(plainPassword, user.HashedPassword);
+                return VerifyPassword(plainPassword, user.Password);
             }
         }
         return false;
