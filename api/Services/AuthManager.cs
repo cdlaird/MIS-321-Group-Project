@@ -8,8 +8,7 @@ namespace api.Services
 {
     public class AuthManager
     {
-        public class AuthManager
-    {
+    
        private List<User> users = new List<User>();
 
     public void Register(string username, string plainPassword)
@@ -47,4 +46,3 @@ namespace api.Services
     }
     } 
     }
-}
