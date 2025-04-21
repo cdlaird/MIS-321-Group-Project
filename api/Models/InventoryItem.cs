@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySqlConnector;
 using api;
-
+using api.Database;
 namespace api.Models
 {
     public class InventoryItem
@@ -16,14 +16,12 @@ namespace api.Models
         public string AuthorLast { get; set; }
         public string Genre { get; set; }
         public int PageCount { get; set; }
-
         public string InStock { get; set; }
-        
         public string IsDeleted { get; set; }
 
 
          private readonly database _db = new();
-
+// get all books
           public async Task<List<InventoryItem>> GetAllAsync()
         {
             const string sql = @"
@@ -52,7 +50,7 @@ namespace api.Models
             }
             return list;
         }
-
+// get a book
         public async Task<InventoryItem> GetByIdAsync(int id)
         {
             const string sql = @"
@@ -82,7 +80,7 @@ namespace api.Models
             }
             return null;
         }
-
+// insert a book
         public async Task AddAsync(InventoryItem it)
         {
             const string sql = @"
@@ -104,7 +102,7 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@instock",   it.InStock);
             await cmd.ExecuteNonQueryAsync();
         }
-
+// update/edit a book
         public async Task UpdateAsync(int id, InventoryItem u)
         {
             const string sql = @"
@@ -130,7 +128,7 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@id",        id);
             await cmd.ExecuteNonQueryAsync();
         }
-
+// delete book
         public async Task DeleteAsync(int id)
         {
             const string sql = @"

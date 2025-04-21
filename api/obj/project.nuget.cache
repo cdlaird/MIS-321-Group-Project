@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LKt2rDvwjps=",
+  "dgSpecHash": "DE1mKrLOZAw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cdlai\\.nuget\\packages\\dotnetenv\\3.1.1\\dotnetenv.3.1.1.nupkg.sha512",
     "C:\\Users\\cdlai\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
@@ -98,12 +98,5 @@
     "C:\\Users\\cdlai\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.12\\microsoft.aspnetcore.app.ref.8.0.12.nupkg.sha512",
     "C:\\Users\\cdlai\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.12\\microsoft.netcore.app.host.win-x64.8.0.12.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

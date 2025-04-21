@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\API.csproj": {}
+    "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\API.csproj": {
+    "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\API.csproj",
+        "projectPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj",
         "packagesPath": "C:\\Users\\cdlai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\obj\\",
+        "outputPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cdlai\\AppData\\Roaming\\NuGet\\NuGet.Config"

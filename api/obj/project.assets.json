@@ -5351,11 +5351,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\API.csproj",
+      "projectPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj",
       "packagesPath": "C:\\Users\\cdlai\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\obj\\",
+      "outputPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cdlai\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5441,13 +5441,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

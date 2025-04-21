@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySqlConnector;
 using api;
+using api.Database;
+
 namespace api.Models
 {
     public class Customer
@@ -44,6 +46,7 @@ namespace api.Models
         }
 
         // Retrieve one by ID
+        // get a customer
         public async Task<Customer> GetByIdAsync(int id)
         {
             const string sql = @"
@@ -109,7 +112,7 @@ namespace api.Models
             await cmd.ExecuteNonQueryAsync();
         }
 
-        
+        // delete a customer
         public async Task DeleteAsync(int id)
         {
             const string sql = @"

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
+
 namespace api.Services
 {
     public class AuthManager
+    {
+        public class AuthManager
     {
        private List<User> users = new List<User>();
 
@@ -44,3 +47,4 @@ namespace api.Services
     }
     } 
     }
+}
