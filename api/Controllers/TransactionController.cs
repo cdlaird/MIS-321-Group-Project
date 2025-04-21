@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using api.Models;
+using API.models;
 
 
 namespace api.Controllers
@@ -31,9 +32,9 @@ namespace api.Controllers
 
         // POST api/<TransactionController>/{id}
         [HttpPost]
-        public async Task Post([FromBody] Transaction value, List<InventoryItem> myBooks){
+        public async Task Post([FromBody] TransactionInventoryDto value){
             Transaction T = new();
-            await T.insertTransactionAsync(value, myBooks);
+            await T.insertTransactionAsync(value.transaction, value.items);
         }
 
         // // PUT api/<TransactionController>/{id}

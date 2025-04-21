@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Database;
+
 using System.Diagnostics.Eventing.Reader;
 
 using MySqlConnector;
-
+using api;
 namespace api.Models
 {
     public class Transaction
     {
-        public database DB;
+        public database DB = new ();
 
         //transaction class objects
         
@@ -56,6 +56,7 @@ namespace api.Models
         }
         public async Task<List<Transaction>> GetAllTransactionsAsync(){
             string sql ="SELECT * FROM mvjb2fks5fyrys10.transaction WHERE deleted = 'n';";
+            System.Console.WriteLine("here " + DB.cs);
             List<MySqlParameter> parms = new();
             return await SelectTransactions(DB.cs, sql, parms);
             System.Console.WriteLine("Completed get all transactions");

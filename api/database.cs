@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace API.Database
+using DotNetEnv;
+namespace api
 {
     public class database
     {
         public string cs;
         public database(){
-            cs = "mysql://owzg1uln3090ua39:ba9c309h8qx6hddd@mkorvuw3sl6cu9ms.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/mvjb2fks5fyrys10";
+            Env.Load();
+            cs = Environment.GetEnvironmentVariable("DATABASE_URL");
+            // cs = "hello";
         }
     }
 }
