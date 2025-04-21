@@ -13,37 +13,42 @@ namespace api.Controllers
     {
         // GET: api/customer
         [HttpGet]
-        public async Task<List<Customer>> Get()
+        public async Task<ActionResult<List<Customer>>> Get()
         {
-            CustomerManager manager = new();
-            return await Task.FromResult(manager.GetAllCustomers());
+            var list = await new Customer().GetAllAsync();
+            return Ok(list);
+        }
+
+        // GET: api/customer/{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Customer>> Get(int id)
+        {
+            var cust = await new Customer().GetByIdAsync(id);
+            return cust != null ? Ok(cust) : NotFound();
         }
 
         // POST: api/customer
         [HttpPost]
-        public async Task Post([FromBody] Customer customer)
+        public async Task<ActionResult> Post([FromBody] Customer c)
         {
-            CustomerManager manager = new();
-            manager.AddCustomer(customer);
-            await Task.CompletedTask;
+            await new Customer().AddAsync(c);
+            return CreatedAtAction(nameof(Get), new { id = c.CustId }, c);
         }
 
         // PUT: api/customer/{id}
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] Customer updated)
+        public async Task<ActionResult> Put(int id, [FromBody] Customer u)
         {
-            CustomerManager manager = new();
-            manager.EditCustomer(id, updated);
-            await Task.CompletedTask;
+            await new Customer().UpdateAsync(id, u);
+            return NoContent();
         }
 
-        // POST: api/customer/add-points/{id}?points=100
-        [HttpPost("add-points/{id}")]
-        public async Task AddPoints(int id, [FromQuery] int points)
+        // DELETE: api/customer/{id}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            CustomerManager manager = new();
-            manager.AddPoints(id, points);
-            await Task.CompletedTask;
+            await new Customer().DeleteAsync(id);
+            return NoContent();
         }
     }
 }

@@ -12,28 +12,18 @@ namespace api.Controllers
     {
         // POST: api/auth/register
         [HttpPost("register")]
-        public async Task Register([FromBody] User user)
+       public async Task<IActionResult> Register([FromBody] User user)
         {
-            AuthManager auth = new();
-            auth.Register(user.Username, user.Password);
-            await Task.CompletedTask;
+            _auth.Register(user.Username, user.Password);
+            return Ok();
         }
 
         // POST: api/auth/login
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] User user)
         {
-            AuthManager auth = new();
-            bool valid = auth.Login(user.Username, user.Password);
-
-            if (valid)
-            {
-                return Ok("Login successful");
-            }
-            else
-            {
-                return Unauthorized("Invalid credentials");
-            }
+            bool valid = _auth.Login(user.Username, user.Password);
+            return valid ? Ok("Login successful") : Unauthorized("Invalid credentials");
         }
     }
 }
