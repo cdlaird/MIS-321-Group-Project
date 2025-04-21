@@ -1,25 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\API.csproj": {}
-    "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/API.csproj": {}
+    "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj": {}
   },
   "projects": {
-    "/Users/annahill/Desktop/221/MIS-321-MIS-321-Group--Project/api/API.csproj": {
+    "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\API.csproj",
-        "projectUniqueName": "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/API.csproj",
+        "projectUniqueName": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\API.csproj",
         "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\obj\\",
-        "projectPath": "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/API.csproj",
-        "packagesPath": "/Users/annahill/.nuget/packages/",
-        "outputPath": "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/obj/",
+        "outputPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/annahill/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -48,6 +43,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "MySqlConnector": {
               "target": "Package",
               "version": "[2.4.0, )"
@@ -76,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

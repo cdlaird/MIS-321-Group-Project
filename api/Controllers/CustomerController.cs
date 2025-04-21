@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-using api.Services;
+// using api.Services;
 using api.Models;
 
 namespace api.Controllers
@@ -32,7 +32,7 @@ namespace api.Controllers
         public async Task<ActionResult> Post([FromBody] Customer c)
         {
             await new Customer().AddAsync(c);
-            return CreatedAtAction(nameof(Get), new { id = c.CustId }, c);
+            return CreatedAtAction(nameof(Get), new { id = c.CustID }, c);
         }
 
         // PUT: api/customer/{id}
