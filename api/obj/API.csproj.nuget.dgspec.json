@@ -1,25 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\API.csproj": {}
-    "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/API.csproj": {}
+    "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj": {}
   },
   "projects": {
-    "/Users/annahill/Desktop/221/MIS-321-MIS-321-Group--Project/api/API.csproj": {
+    "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\API.csproj",
-        "projectUniqueName": "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/API.csproj",
+        "projectUniqueName": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lucas\\321\\MIS-321-Group-Project\\API\\obj\\",
-        "projectPath": "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/API.csproj",
-        "packagesPath": "/Users/annahill/.nuget/packages/",
-        "outputPath": "/Users/annahill/Desktop/221/MIS-321-Group-Project/api/obj/",
+        "projectPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\API.csproj",
+        "packagesPath": "C:\\Users\\cdlai\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdlai\\OneDrive\\Desktop\\mis321project\\MIS-321-Group-Project\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/annahill/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\cdlai\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -42,12 +37,17 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "MySqlConnector": {
               "target": "Package",
               "version": "[2.4.0, )"
@@ -68,6 +68,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.12, 8.0.12]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.12, 8.0.12]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.12, 8.0.12]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.12, 8.0.12]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -76,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

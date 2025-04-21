@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 using api.Models;
-using api.Services;
+
 
 namespace api.Controllers
 {
@@ -10,8 +10,11 @@ namespace api.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
+
+private readonly AuthManager _auth = new AuthManager();
         // POST: api/auth/register
         [HttpPost("register")]
+        
        public async Task<IActionResult> Register([FromBody] User user)
         {
             _auth.Register(user.Username, user.Password);
