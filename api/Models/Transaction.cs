@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Diagnostics.Eventing.Reader;
-
 using MySqlConnector;
 using api;
 namespace api.Models
@@ -112,9 +111,10 @@ namespace api.Models
             try{
                 using var connection = new MySqlConnection(DB.cs);
                 await connection.OpenAsync();
-                string sql = $"UPDATE `mvjb2fks5fyrys10`.`transaction` SET `isdeleted` = 'y' WHERE (`transactionid` = @transactionid);";
+                string sql = 
+                $"UPDATE `mvjb2fks5fyrys10`.`transaction` SET `isdeleted` = 'y' WHERE (`transactionid` = @transactionid);";
                 var command = new MySqlCommand(sql, connection);
-                command.Parameters.AddWithValue($"{id}",id);
+                command.Parameters.AddWithValue("@transactionid",id);
                 command.Prepare();
                 await command.ExecuteNonQueryAsync();
                 connection.Close();
