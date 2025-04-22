@@ -1,12 +1,9 @@
+const url = "https://localhost:5219/api/Inventory";
 
-const url = "http://localhost:5219/api/Inventory";
-
-//https://localhost:7283/api/Inventory
 let books = [];
 const container = document.getElementById("inventory-container");
 const modal = new bootstrap.Modal(document.getElementById("inventoryModal"));
 
-// Form references
 const form = document.getElementById("inventoryForm");
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
@@ -14,7 +11,6 @@ const priceInput = document.getElementById("price");
 const pageCountInput = document.getElementById("pageCount");
 const genreInput = document.getElementById("genre");
 const stockQuantityInput = document.getElementById("stockQuantity");
-// const coverInput = document.getElementById("cover");
 const editIdInput = document.getElementById("editBookId");
 
 async function renderBooks() {
@@ -31,15 +27,13 @@ async function renderBooks() {
       <div class="card-body">
         <h5 class="card-title">${book.title}</h5>
         <p class="card-text">
-          <strong>Author:</strong> ${book.author}<br>
-          <strong>ISBN:</strong> ${book.id}<br>
-          <strong>Price:</strong> $${book.price}<br>
-              <strong>Pages:</strong> ${book.genre}<br>
+          <strong>Author:</strong> ${book.authorFirst} ${book.authorLast}<br>
+          <strong>ISBN:</strong> ${book.isbn}<br>
           <strong>Pages:</strong> ${book.pageCount}<br>
-          <strong>Qty:</strong> ${book.stockQuantity}
+          <strong>Qty:</strong> ${book.inStock}<br>
         </p>
-        <button class="btn btn-sm btn-warning me-2" onclick="editBook('${book.id}')">Edit</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteBook('${book.id}')">Delete</button>
+        <button class="btn btn-sm btn-warning me-2" onclick="editBook(${book.bookId})">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteBook(${book.bookId})">Delete</button>
       </div>
     `;
 
@@ -49,24 +43,24 @@ async function renderBooks() {
 
 async function addBook(event) {
   event.preventDefault();
-  console.log("form submitted")
 
   const newBook = {
+    ISBN: "",
     title: titleInput.value,
-    author: authorInput.value,
-    price: parseFloat(priceInput.value),
+    authorFirst: authorInput.value.split(" ")[0],
+    authorLast: authorInput.value.split(" ")[1],
     genre: genreInput.value,
     pageCount: parseInt(pageCountInput.value),
-    stockQuantity: parseInt(stockQuantityInput.value),
-    // cover: coverInput.value,
+    inStock: stockQuantityInput.value,
+    isDeleted: "n",
   };
 
   try {
-
-    console.log("sending book:", JSON.stringify(newBook));
     await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json; charset=UTF-8" },
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
       body: JSON.stringify(newBook),
     });
 
@@ -79,39 +73,41 @@ async function addBook(event) {
 }
 
 async function editBook(id) {
-  const response = await fetch(`${url} + "/" +${id}`);
+  const response = await fetch(url + "/" + id);
   const book = await response.json();
 
-  editIdInput.value = book.id;
+  editIdInput.value = book.bookId;
   titleInput.value = book.title;
-  authorInput.value = book.author;
-  priceInput.value = book.price;
+  authorInput.value = `${book.authorFirst} ${book.authorLast}`;
   genreInput.value = book.genre;
   pageCountInput.value = book.pageCount;
-  quantityInput.value = book.stockQuantity;
+  stockQuantityInput.value = book.inStock;
 
   modal.show();
 }
+
 async function saveEditedBook(event) {
   event.preventDefault();
 
   const id = editIdInput.value;
 
   const updatedBook = {
+    ISBN: "",
     title: titleInput.value,
-    author: authorInput.value,
-    id: idInput.value,
-    price: parseFloat(priceInput.value),
-    genre: parseFloat(genreInput.value),
+    authorFirst: authorInput.value.split(" ")[0],
+    authorLast: authorInput.value.split(" ")[1],
+    genre: genreInput.value,
     pageCount: parseInt(pageCountInput.value),
-    stockQuantity: parseInt(quantityInput.value),
-    // cover: coverInput.value,
+    inStock: stockQuantityInput.value,
+    isDeleted: "n",
   };
 
   try {
-    await fetch(`${url}/${id}`, {
+    await fetch(url + "/" + id, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json;  charset=UTF-8",
+      },
       body: JSON.stringify(updatedBook),
     });
 
@@ -124,7 +120,13 @@ async function saveEditedBook(event) {
 }
 
 async function deleteBook(id) {
-  await fetch(`${url}/${id}`, { method: "DELETE" });
+  await fetch(url + "/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json;  charset=UTF-8",
+    },
+  });
+
   await renderBooks();
 }
 
@@ -140,4 +142,5 @@ function closeNav() {
 
 document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", addBook);
+  renderBooks();
 });

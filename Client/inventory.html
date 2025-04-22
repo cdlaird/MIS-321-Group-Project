@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +8,8 @@
   <title>Inventory</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+AU+QLD:wght@100..400&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=book_5" />
   <link rel="stylesheet" href="./styles/inventory.css" />
 </head>
 <body>
@@ -22,15 +22,14 @@
         <a href="loyaltyprogram.html">Customers</a>
         <a href="dashboard.html">Dashboard</a>
       </div>
-</header>
-<body>
+  </header>
 
   <main class="p-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h2>Inventory Management</h2>
       <button class="btn" data-bs-toggle="modal" data-bs-target="#inventoryModal">Add Inventory</button>
     </div>
-    <input type="text" id ="myInput" onkeyup="searchTable()" placeholder="Search Inventory...">
+    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search Inventory...">
 
     <div id="inventory-container" class="d-flex flex-wrap gap-4"></div>
   </main>
@@ -45,36 +44,35 @@
           </div>
 
           <div class="modal-body">
+
             <input type="hidden" id="editBookId" />
 
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
               <input type="text" id="title" class="form-control" required />
             </div>
+            <div class="mb-3">
+              <label for="authorFirst" class="form-label">Author First Name</label>
+              <input type="text" id="authorFirst" class="form-control" required />
+            </div>
 
             <div class="mb-3">
-              <label for="author" class="form-label">Author</label>
-              <input type="text" id="author" class="form-control" required />
+              <label for="authorLast" class="form-label">Author Last Name</label>
+              <input type="text" id="authorLast" class="form-control" required />
             </div>
 
             <div class="mb-3">
               <label for="genre" class="form-label">Genre</label>
               <input type="text" id="genre" class="form-control" required />
             </div>
-
-            <div class="mb-3">
-              <label for="price" class="form-label">Price</label>
-              <input type="number" id="price" class="form-control" required />
-            </div>
-
             <div class="mb-3">
               <label for="pageCount" class="form-label">Page Count</label>
               <input type="number" id="pageCount" class="form-control" required />
             </div>
 
             <div class="mb-3">
-              <label for="stockQuantity" class="form-label">Stock Quantity</label>
-              <input type="number" id="stockQuantity" class="form-control" required />
+              <label for="inStock" class="form-label">In Stock</label>
+              <input type="number" id="inStock" class="form-control" required />
             </div>
           </div>
 
