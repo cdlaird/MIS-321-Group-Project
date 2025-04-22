@@ -1,4 +1,4 @@
-const url = "https://localhost:5219/api/Inventory";
+const url = "http://localhost:5219/api/Inventory";
 
 let books = [];
 const container = document.getElementById("inventory-container");

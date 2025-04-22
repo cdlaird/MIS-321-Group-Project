@@ -15,7 +15,8 @@ namespace api.Models
         //transaction class objects
         
         public int transactionID  {get; set;}
-        public int custid {get; set;}
+        public int bookId {get; set;}
+        public int custId {get; set;}
         public DateTime datetime {get; set;}
 
         //methods for transactions Create, Read Update, Delete (CRUD)
@@ -35,7 +36,7 @@ namespace api.Models
             while(await reader.ReadAsync()){
                 myTransactions.Add(new Transaction(){
                     transactionID = reader.GetInt32(0),
-                    custid = reader.GetInt32(1),
+                    custId = reader.GetInt32(1),
                     datetime = reader.GetDateTime(2)
                 });
             }
@@ -72,14 +73,18 @@ namespace api.Models
         }
 
         //add in a transaction
-        public async Task insertTransactionAsync(Transaction myTransaction, List<InventoryItem> myBooks){
-            string sql ="INSERT INTO `mvjb2fks5fyrys10`.`transaction` (`datetime`, `custid`) VALUES (@datetime, @custid);";
+        public async Task insertTransactionAsync(Transaction myTransaction){
+            System.Console.WriteLine(myTransaction.bookId);
+            System.Console.WriteLine(myTransaction.custId);
+            System.Console.WriteLine(myTransaction.datetime);
+            string sql ="INSERT INTO transaction (transactionid, datetime, custid, bookid) VALUES (@transactionid, @datetime, @custid, @bookid);";
             List<MySqlParameter> parms = new();
-            parms.Add(new MySqlParameter("@transactionID", MySqlDbType.Int32) {Value = myTransaction.transactionID});
-            parms.Add(new MySqlParameter("@custid",MySqlDbType.Int32){Value = myTransaction.custid});
+            parms.Add(new MySqlParameter("@transactionid", MySqlDbType.Int32) {Value = myTransaction.transactionID});
+            parms.Add(new MySqlParameter("@custid",MySqlDbType.Int32){Value = myTransaction.custId});
+            parms.Add(new MySqlParameter("@bookid",MySqlDbType.Int32){Value = myTransaction.bookId});
             parms.Add(new MySqlParameter("@datetime",MySqlDbType.DateTime){Value = myTransaction.datetime});
             await TransactionsNoReturnSql(DB.cs, sql, parms);
-            System.Console.WriteLine("Completed insert transaction async");
+            System.Console.WriteLine("Completed insert transaction async"); 
         }
 
     public async Task InsertBridge(List<InventoryItem> myBooks) {

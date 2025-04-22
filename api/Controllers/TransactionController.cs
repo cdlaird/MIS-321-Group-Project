@@ -32,9 +32,9 @@ namespace api.Controllers
 
         // POST api/<TransactionController>/{id}
         [HttpPost]
-        public async Task Post([FromBody] TransactionInventoryDto value){
+        public async Task Post([FromBody] Transaction value){
             Transaction T = new();
-            await T.insertTransactionAsync(value.transaction, value.items);
+            await T.insertTransactionAsync(value);
         }
 
         // // PUT api/<TransactionController>/{id}

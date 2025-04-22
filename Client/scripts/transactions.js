@@ -1,4 +1,4 @@
-const url = "https://localhost:5219/api/Transaction"; 
+const url = "http://localhost:5219/api/Transaction"; 
 
 
 // add a filter report for transactions
@@ -10,47 +10,45 @@ const transactionDateInput = document.getElementById("transactionDate");
 
 
 addTransactionBtn.addEventListener('click', async function() {
-
+  console.log(customerIdInput.value)
+  console.log(transactionDateInput.value)
+  console.log(bookIdInput.value)
   const transaction = {
-    customerId: customerIdInput.value,
-    datetime: new Date(transactionDateInput.value).toISOString(),
+    custId: parseInt(customerIdInput.value),
+    datetime: new Date(transactionDateInput.value),
+    bookId: parseInt(bookIdInput.value)
   }; 
 
-  const bookIds = bookIdInput.value.split(",").map(id => ({
-    bookId: parseInt(id.trim())
-  }));
 
-  try {
+  // const bookIds = bookIdInput.value.split(",").map(id => ({
+  //   bookId: parseInt(id.trim())
+  // }));
+
     //should hopefully post once connected to backend
     
     const response = await fetch(url, {
       method: "POST",
-      body: JSON.stringify({transaction, items: bookIds}),
+      body: JSON.stringify(transaction),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
 
-    const result = await response.json();
+    // const result = await response.json();
     
-    if (result.success) {
-      alert("Transaction was added successfully!");
       
       
       const myModal = new bootstrap.Modal(document.getElementById('transactionModal'));
       myModal.hide();
+      await renderTransactions();
 
       document.getElementById("add-transaction-form").reset();
       await renderTransactions();
-    } else {
-      alert("Error adding transaction.");
-    }
+ 
 
-    //need this to say error
-  } catch (error) {
-    alert("There was an error adding transaction. Please try again!");
-  }
-});
+
+
+  });
    
 async function renderTransactions() {
   const response = await fetch(url);
