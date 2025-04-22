@@ -11,18 +11,21 @@ const transactionDateInput = document.getElementById("transactionDate");
 
 addTransactionBtn.addEventListener('click', async function() {
 
-  const newTransaction = {
+  const transaction = {
     customerId: customerIdInput.value,
-    bookId: bookIdInput.value,
-    transactionDate: transactionDateInput.value,
-  };
+    datetime: new Date(transactionDateInput.value).toISOString(),
+  }; 
+
+  const bookIds = bookIdInput.value.split(",").map(id => ({
+    bookId: parseInt(id.trim())
+  }));
 
   try {
     //should hopefully post once connected to backend
     
     const response = await fetch(url, {
       method: "POST",
-      body: JSON.stringify(newTransaction),
+      body: JSON.stringify({transaction, items: bookIds}),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -38,6 +41,7 @@ addTransactionBtn.addEventListener('click', async function() {
       myModal.hide();
 
       document.getElementById("add-transaction-form").reset();
+      await renderTransactions();
     } else {
       alert("Error adding transaction.");
     }
@@ -47,6 +51,29 @@ addTransactionBtn.addEventListener('click', async function() {
     alert("There was an error adding transaction. Please try again!");
   }
 });
+   
+async function renderTransactions() {
+  const response = await fetch(url);
+  const transactions = await response.json();
+
+  transactionsTableBody.innerHTML = "";
+
+  transactions.forEach((t) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${t.transactionID}</td>
+      <td>${t.custid}</td>
+      <td>${new Date(t.datetime).toLocaleDateString()}</td>
+      <td>View Bridge</td>
+      <td><button class="btn btn-sm btn-danger" onclick="deleteTransaction(${t.transactionID})">Delete</button></td>
+    `;
+
+    transactionsTableBody.appendChild(row);
+  });
+}
+
+
 
 function searchTable(){
     const input = document.getElementById("myInput");
