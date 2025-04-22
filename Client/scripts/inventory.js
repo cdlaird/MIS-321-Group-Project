@@ -1,5 +1,8 @@
+
+const url = "http://localhost:5219/api/Inventory";
+
+//https://localhost:7283/api/Inventory
 let books = [];
-const url = "https://localhost:7283/api/inventory";
 const container = document.getElementById("inventory-container");
 const modal = new bootstrap.Modal(document.getElementById("inventoryModal"));
 
@@ -7,11 +10,11 @@ const modal = new bootstrap.Modal(document.getElementById("inventoryModal"));
 const form = document.getElementById("inventoryForm");
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
-const isbnInput = document.getElementById("isbn");
 const priceInput = document.getElementById("price");
 const pageCountInput = document.getElementById("pageCount");
-const quantityInput = document.getElementById("quantity");
-const coverInput = document.getElementById("cover");
+const genreInput = document.getElementById("genre");
+const stockQuantityInput = document.getElementById("stockQuantity");
+// const coverInput = document.getElementById("cover");
 const editIdInput = document.getElementById("editBookId");
 
 async function renderBooks() {
@@ -25,15 +28,15 @@ async function renderBooks() {
     card.style.width = "200px";
 
     card.innerHTML = `
-      <img src="${book.cover}" class="card-img-top" alt="${book.title} cover">
       <div class="card-body">
         <h5 class="card-title">${book.title}</h5>
         <p class="card-text">
           <strong>Author:</strong> ${book.author}<br>
-          <strong>ISBN:</strong> ${book.isbn}<br>
+          <strong>ISBN:</strong> ${book.id}<br>
           <strong>Price:</strong> $${book.price}<br>
+              <strong>Pages:</strong> ${book.genre}<br>
           <strong>Pages:</strong> ${book.pageCount}<br>
-          <strong>Qty:</strong> ${book.quantity}
+          <strong>Qty:</strong> ${book.stockQuantity}
         </p>
         <button class="btn btn-sm btn-warning me-2" onclick="editBook('${book.id}')">Edit</button>
         <button class="btn btn-sm btn-danger" onclick="deleteBook('${book.id}')">Delete</button>
@@ -46,21 +49,24 @@ async function renderBooks() {
 
 async function addBook(event) {
   event.preventDefault();
+  console.log("form submitted")
 
   const newBook = {
     title: titleInput.value,
     author: authorInput.value,
-    isbn: isbnInput.value,
-    price: parseFloat(priceInput.value).toFixed(2),
+    price: parseFloat(priceInput.value),
+    genre: genreInput.value,
     pageCount: parseInt(pageCountInput.value),
-    quantity: parseInt(quantityInput.value),
-    cover: coverInput.value,
+    stockQuantity: parseInt(stockQuantityInput.value),
+    // cover: coverInput.value,
   };
 
   try {
+
+    console.log("sending book:", JSON.stringify(newBook));
     await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
       body: JSON.stringify(newBook),
     });
 
@@ -79,11 +85,10 @@ async function editBook(id) {
   editIdInput.value = book.id;
   titleInput.value = book.title;
   authorInput.value = book.author;
-  isbnInput.value = book.isbn;
   priceInput.value = book.price;
+  genreInput.value = book.genre;
   pageCountInput.value = book.pageCount;
-  quantityInput.value = book.quantity;
-  coverInput.value = book.cover;
+  quantityInput.value = book.stockQuantity;
 
   modal.show();
 }
@@ -95,15 +100,16 @@ async function saveEditedBook(event) {
   const updatedBook = {
     title: titleInput.value,
     author: authorInput.value,
-    isbn: isbnInput.value,
-    price: parseFloat(priceInput.value).toFixed(2),
+    id: idInput.value,
+    price: parseFloat(priceInput.value),
+    genre: parseFloat(genreInput.value),
     pageCount: parseInt(pageCountInput.value),
-    quantity: parseInt(quantityInput.value),
-    cover: coverInput.value,
+    stockQuantity: parseInt(quantityInput.value),
+    // cover: coverInput.value,
   };
 
   try {
-    await fetch(`${url}/${updatedBook.id}`, {
+    await fetch(`${url}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedBook),
@@ -131,3 +137,7 @@ function closeNav() {
   document.getElementById("mySidepanel").style.width = "0";
   document.body.classList.remove("sidepanel-open");
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  form.addEventListener("submit", addBook);
+});
