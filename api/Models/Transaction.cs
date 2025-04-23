@@ -18,6 +18,7 @@ namespace api.Models
         public int bookId {get; set;}
         public int custId {get; set;}
         public DateTime datetime {get; set;}
+        public char isdeleted {get; set;}
 
         //methods for transactions Create, Read Update, Delete (CRUD)
         //methods are called by controller. These methods connect to database using connection
@@ -36,8 +37,10 @@ namespace api.Models
             while(await reader.ReadAsync()){
                 myTransactions.Add(new Transaction(){
                     transactionID = reader.GetInt32(0),
-                    custId = reader.GetInt32(1),
-                    datetime = reader.GetDateTime(2)
+                    datetime = reader.GetDateTime(1),
+                    custId = reader.GetInt32(2),
+                    bookId = reader.GetInt32(3),
+                    isdeleted = reader.GetChar(4),
                 });
             }
             return myTransactions;
@@ -55,7 +58,7 @@ namespace api.Models
             await command.ExecuteNonQueryAsync();
         }
         public async Task<List<Transaction>> GetAllTransactionsAsync(){
-            string sql ="SELECT * FROM mvjb2fks5fyrys10.transaction WHERE deleted = 'n';";
+            string sql ="SELECT * FROM mvjb2fks5fyrys10.transaction WHERE isdeleted = 'n';";
             System.Console.WriteLine("here " + DB.cs);
             List<MySqlParameter> parms = new();
             return await SelectTransactions(DB.cs, sql, parms);

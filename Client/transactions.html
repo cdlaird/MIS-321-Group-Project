@@ -23,7 +23,7 @@
       
       <button class="openbtn" onclick="openNav()">&#9776;</button>
 </header>
-<body>
+<body onload="renderTransactions()">
 
   <div class="container mt-5">
     <h2 class="text-left">Sales Transactions</h2>
@@ -35,9 +35,10 @@
           <th>Customer ID</th>
           <th>Book ID(s)</th>
           <th>Transaction Date</th>
+          <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="transactionsTableBody">
       </tbody>
     </table>
     <button class="btn" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Transaction</button>
@@ -64,7 +65,7 @@
                   <label for="transactionDate" class="form-label">Transaction Date</label>
                   <input type="datetime-local" id="transactionDate" class="form-control" required>
                 </div>
-                <button type="button" class="btn btn-success" id="addTransactionBtn">Add Transaction</button>
+                <button onclick="handleAdd()" type="button" class="btn btn-success" id="addTransactionBtn">Add Transaction</button>
               </form>
             </div>
           </div>

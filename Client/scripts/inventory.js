@@ -6,11 +6,12 @@ const modal = new bootstrap.Modal(document.getElementById("inventoryModal"));
 
 const form = document.getElementById("inventoryForm");
 const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
+const authorFirstInput = document.getElementById("authorFirst");
+const authorLastInput = document.getElementById("authorLast");
 const priceInput = document.getElementById("price");
 const pageCountInput = document.getElementById("pageCount");
 const genreInput = document.getElementById("genre");
-const stockQuantityInput = document.getElementById("stockQuantity");
+const stockQuantityInput = document.getElementById("inStock");
 const editIdInput = document.getElementById("editBookId");
 
 async function renderBooks() {
@@ -47,8 +48,8 @@ async function addBook(event) {
   const newBook = {
     ISBN: "",
     title: titleInput.value,
-    authorFirst: authorInput.value.split(" ")[0],
-    authorLast: authorInput.value.split(" ")[1],
+    authorFirst: authorFirst.value,
+    authorLast: authorLast,
     genre: genreInput.value,
     pageCount: parseInt(pageCountInput.value),
     inStock: stockQuantityInput.value,
@@ -78,7 +79,8 @@ async function editBook(id) {
 
   editIdInput.value = book.bookId;
   titleInput.value = book.title;
-  authorInput.value = `${book.authorFirst} ${book.authorLast}`;
+  authorFirstInput.value = book.authorFirst;
+  authorLastInput.value = book.authorLast;
   genreInput.value = book.genre;
   pageCountInput.value = book.pageCount;
   stockQuantityInput.value = book.inStock;
