@@ -19,13 +19,13 @@ function renderCustomers() {
 
   customers.forEach((cust) => {
     const row = document.createElement("tr");
-
+    let tier = tierStatus(cust.points);
     row.innerHTML = `
     <td>${cust.custID}</td>
     <td>${cust.custFirst}  ${cust.custLast}</td>
     <td>${cust.phone}</td>
     <td>${cust.points}</td>
-    <td>${cust.tier}</td>
+    <td>${tier}</td>
     <td>
         <button class="btn btn-sm btn-primary" onclick="openCustomerModal(${cust.id})">Edit</button>
         </td>
@@ -33,6 +33,21 @@ function renderCustomers() {
 
     tbody.appendChild(row);
   });
+}
+
+function tierStatus(points){
+  if(points > 999){
+    return "Platinum"
+  }
+  else if(points > 499){
+    return "Gold"
+  }
+  else if(points > 99){
+    return "Silver"
+  }
+  else{
+    return "Bronze"
+  }
 }
 
 
