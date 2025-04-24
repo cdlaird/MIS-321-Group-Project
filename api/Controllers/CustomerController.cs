@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -39,14 +40,8 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Customer u)
         {
-            if (u == null || id < 0)
-        return BadRequest("Invalid data");
-
-    bool success = await new Customer().UpdateAsync(id, u);
-    if (!success)
-        return NotFound($"Customer with ID {id} not found or already deleted.");
-
-    return NoContent();
+            await new Customer().UpdateAsync(id, u);
+            return Ok();
         }
 
         // DELETE: api/customer/{id}

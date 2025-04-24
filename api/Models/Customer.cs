@@ -92,7 +92,7 @@ namespace api.Models
         }
 
         // Update existing customer
-        public async Task<bool> UpdateAsync(int id, Customer u)
+        public async Task UpdateAsync(int id, Customer u)
         {
             const string sql = @"
                 UPDATE customer
@@ -109,8 +109,7 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@last",   u.CustLast);
             cmd.Parameters.AddWithValue("@points", u.Points);
             cmd.Parameters.AddWithValue("@id",     id);
-              int affected = await cmd.ExecuteNonQueryAsync();
-            return affected > 0;
+              
         }
 
         // delete a customer

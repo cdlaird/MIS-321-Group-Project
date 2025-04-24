@@ -59,7 +59,8 @@ async function saveEditedCustomer(id) {
     custLast:  document.getElementById("customerLast").value.trim(),
     phone:     document.getElementById("customerPhone").value.trim(),
     points:    parseInt(document.getElementById("customerPoints").value, 10),
-    tier:      document.getElementById("customerTier").value
+    isDeleted: "n"
+    
   };
 
   const response = await fetch(`${url}/${id}`, {
@@ -69,8 +70,10 @@ async function saveEditedCustomer(id) {
   });
 
   if (!response.ok) {
+    const text = await response.text();
+    console.error("Failed to save:", response.status, text);
     alert("Failed to save changes");
-    return;
+    return null;
   }
   return updated;
 }
