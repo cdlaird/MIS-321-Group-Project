@@ -48,7 +48,7 @@ window.openCustomerModal = function(id) {
   document.getElementById("customerPhone").value = cust.phone;
   document.getElementById("customerPoints").value = cust.points;
   // document.getElementById("customerTier").value  = tierStatus(cust.points);
-  }
+  } 
   customerModal.show();
 };
 
@@ -114,18 +114,13 @@ async function saveEditedCustomer(id) {
   form.addEventListener("submit", async e => {
     e.preventDefault();
     const id = document.getElementById("customerId").value 
-
-
-    
-    if (id != "") {
-      await addCustomer()
-    } else if(id == "")  {
-      console.log('hello')
-        const payload = await saveEditedCustomer(parseInt(id));
-        if (!payload) return;
-      
-        const idx = customers.findIndex(c => c.custID == id);
-        customers[idx] = { custID: parseInt(id), ...payload };
+    if (id === "undefined") {
+        await addCustomer()
+        console.log('hello')
+      } 
+      else if(id != ""){
+        await saveEditedCustomer(id);
+      console.log('second code path')
       }
       
       customerModal.hide();

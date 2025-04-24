@@ -109,6 +109,8 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@last",   u.CustLast);
             cmd.Parameters.AddWithValue("@points", u.Points);
             cmd.Parameters.AddWithValue("@id",     id);
+            await cmd.ExecuteNonQueryAsync();
+
               
         }
 
