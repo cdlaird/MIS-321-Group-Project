@@ -133,26 +133,6 @@ function searchTable() {
   });
 }
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   const badge = document.querySelector(".tier-badge");
-//   if (badge.textContent === "Gold") {
-//     badge.style.backgroundColor = "#FFD700";
-//   }
-// });
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   const badge = document.querySelector(".tier-badge");
-//   if (badge.textContent === "Silver") {
-//     badge.style.backgroundColor = "#C0C0C0";
-//   }
-// });
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   const badge = document.querySelector(".tier-badge");
-//   if (badge.textContent === "Bronze") {
-//     badge.style.backgroundColor = "#E5E4E2";
-//   }
-// });
 
 function openNav() {
   document.body.classList.add("sidepanel-open");
