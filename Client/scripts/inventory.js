@@ -12,10 +12,10 @@ renderBooks();
 async function onFormSubmit(event){
   event.preventDefault();
   const id = document.getElementById("editBookId").value;
-  if(id){
+  if(id != ""){
     await saveEditedBook(id);
   }
-  else{
+  else if( id == ""){
     await handleAdd();
 
   }
@@ -24,68 +24,44 @@ async function onFormSubmit(event){
   await renderBooks();
 }
 
-async function handleAdd(){
-  console.log("handleAdd function called!");
-const isbnInput = document.getElementById("isbn");
-const titleInput = document.getElementById("title");
-const authorFirstInput = document.getElementById("authorFirst");
-const authorLastInput = document.getElementById("authorLast");
-const priceInput = document.getElementById("price");
-const pageCountInput = document.getElementById("pageCount");
-const genreInput = document.getElementById("genre");
-const stockQuantityInput = document.getElementById("inStock");
-// const editIdInput = document.getElementById("editBookId");
 
-console.log("Form values:", {
-  isbn: isbnInput.value,
-  title: titleInput.value,
-  authorFirst: authorFirstInput.value,
-  authorLast: authorLastInput.value,
-  pageCount: pageCountInput.value,
-  genre: genreInput.value,
-  inStock: stockQuantityInput.value
-});
-console.log(titleInput.value)
-const book = {
-  isbn :isbnInput.value,
-  title: titleInput.value,
-  authorFirst: authorFirstInput.value,
-  authorLast: authorLastInput.value,
-  price: parseInt(priceInput.value),
-  pageCount: parseInt(pageCountInput.value),
-  genre: genreInput.value,
-  inStock: stockQuantityInput.value,
-  isDeleted: 'n'
-};
 
-console.log("Sending data to server:", book);
-console.log("Endpoint URL:", url);
+async function handleAdd() {
+  document.getElementById("editBookId").value = "";
+  const book = {
+    isbn: document.getElementById("isbn").value.trim(),
+    title: document.getElementById("title").value.trim(),
+    authorFirst: document.getElementById("authorFirst").value.trim(),
+    authorLast: document.getElementById("authorLast").value.trim(),
+    genre: document.getElementById("genre").value.trim(),
+    pageCount: parseInt(document.getElementById("pageCount").value, 10),
+    price: parseFloat(document.getElementById("price").value),
+    inStock: document.getElementById("inStock").value.trim(),
+    isDeleted: "n"
+  };
 
-try {
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(book),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
-  
-  console.log("Post response", response);
-  
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error(`Server error: ${response.status} - ${errorText}`);
-    alert(`Failed to add book: ${response.status} error`);
-    return;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(book)
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Server error: ${response.status} - ${errorText}`);
+      alert(`Failed to add book: ${response.status} - ${errorText}`);
+      return;
+    }
+
+    console.log("Book added successfully");
+  } catch (error) {
+    console.error("Error adding book:", error);
+    alert("An error occurred while adding the book: " + error.message);
   }
-  
-  modal.hide();
-  form.reset();
-  await renderBooks();
-} catch (error) {
-  console.error("Error adding book:", error);
-  alert("Failed to add book: " + error.message);
-}}
+}
 
 async function editBook(id){
   const response=await fetch(`${url}/${id}`);
@@ -121,6 +97,7 @@ async function saveEditedBook(id) {
     inStock     : document.getElementById("inStock").value.trim(),
     isDeleted   : "n"
   };
+  console.log(id)
   const resp = await fetch(`${url}/${id}`, {
     method:  "PUT",
     headers: { "Content-Type": "application/json" },
@@ -132,6 +109,7 @@ async function saveEditedBook(id) {
     alert("Failed to save changes");
   }
 }
+
 
 
 async function renderBooks() {
@@ -153,7 +131,7 @@ async function renderBooks() {
           <strong>Pages:</strong> ${book.pageCount}<br>
           <strong>Qty:</strong> ${book.inStock}<br>
         </p>
-        <button class="btn btn-sm btn-warning me-2" onclick="editBook(${book.bookId})">Edit</button>
+        <button class="btn btn-sm me-2" onclick="editBook(${book.bookId})">Edit</button>
         <button class="btn btn-sm btn-danger" onclick="deleteBook(${book.bookId})">Delete</button>
       </div>
     `;
@@ -173,6 +151,22 @@ async function deleteBook(id) {
 
   await renderBooks();
 }
+
+
+function searchTable() {
+  const input = document.getElementById("myInput").value.toLowerCase();
+  const cards = container.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const content = card.textContent.toLowerCase();
+    if (content.includes(input)) {
+      card.style.display = "";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
 
 function openNav() {
   document.getElementById("mySidepanel").style.width = "250px";

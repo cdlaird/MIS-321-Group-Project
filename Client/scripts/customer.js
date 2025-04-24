@@ -47,10 +47,41 @@ window.openCustomerModal = function(id) {
   document.getElementById("customerLast").value =cust.custLast;
   document.getElementById("customerPhone").value = cust.phone;
   document.getElementById("customerPoints").value = cust.points;
-  document.getElementById("customerTier").value  = tierStatus(cust.points);
+  // document.getElementById("customerTier").value  = tierStatus(cust.points);
   }
   customerModal.show();
 };
+
+async function addCustomer() {
+  const newCustomer = {
+    custFirst: document.getElementById("customerFirst").value.trim(),
+    custLast:  document.getElementById("customerLast").value.trim(),
+    phone:     document.getElementById("customerPhone").value.trim(),
+    points:    parseInt(document.getElementById("customerPoints").value, 10),
+    isDeleted: "n"
+  };
+
+  console.log("Submitting new customer:", newCustomer); // for debugging
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newCustomer)
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    alert("Failed to add customer:\n" + err);
+    return;
+  }
+
+  const addedCustomer = await response.json();
+  customers.push(addedCustomer);
+  renderCustomers();
+  customerModal.hide();
+}
+
+
 
 async function saveEditedCustomer(id) {
   const updated = {
@@ -60,6 +91,7 @@ async function saveEditedCustomer(id) {
     phone:     document.getElementById("customerPhone").value.trim(),
     points:    parseInt(document.getElementById("customerPoints").value, 10),
     isDeleted: "n"
+    // isDeleted: "n"
     
   };
 
@@ -78,21 +110,27 @@ async function saveEditedCustomer(id) {
   return updated;
 }
 
-  // update local array & re-render
+
   form.addEventListener("submit", async e => {
     e.preventDefault();
-    const id = parseInt(document.getElementById("customerId").value,10);
-    if (isNaN(id)) return;
-  
-    const payload = await saveEditedCustomer(id);
-    if (!payload) return;
-  
-    // update local array & re-render
-    const idx = customers.findIndex(c => c.custID === id);
-    customers[idx] = { custID: id, ...payload };
-    renderCustomers();
-  
-    customerModal.hide();
+    const id = document.getElementById("customerId").value 
+
+
+    
+    if (id != "") {
+      await addCustomer()
+    } else if(id == "")  {
+      console.log('hello')
+        const payload = await saveEditedCustomer(parseInt(id));
+        if (!payload) return;
+      
+        const idx = customers.findIndex(c => c.custID == id);
+        customers[idx] = { custID: parseInt(id), ...payload };
+      }
+      
+      customerModal.hide();
+      await fetchCustomers()
+      renderCustomers()   
   });
 
 function tierStatus(points){
@@ -112,47 +150,6 @@ function tierStatus(points){
 
 
 
-
-  // async function handleCustomerFormSubmit(e) {
-  //   e.preventDefault();
-
-  //   const id = document.getElementById("customerId").value;
-  //   const name = document.getElementById("customerName").value.split(" ");
-  //   const phone = document.getElementById("customerPhone").value;
-  //   const points = parseInt(document.getElementById("customerPoints").value);
-  //   const tier = tierStatus(points);
-    
-  //   const data = {
-  //     custFirst: name[0],
-  //     custLast: name[1] || "",
-  //     phone,
-  //     points,
-  //     tier
-  //   };
-
-  //   if (id) {
-  //     await fetch(url + "/" + id, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(data)
-  //     });
-
-  //     const index = customers.findIndex(c => c.custID == id);
-  //     customers[index] = { ...data, custID: parseInt(id) };
-  //   } else {
-  //     const response = await fetch(url, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(data)
-  //     });
-
-  //     const newCustomer = await response.json();
-  //     customers.push(newCustomer);
-  //   }
-
-  //   renderCustomers();
-  //   customerModal.hide();
-  // }
 
 async function deleteCustomer(id) {
   await fetch(url + "/" + id, {

@@ -193,16 +193,17 @@ body {
   }
 
   .sidepanel {
-    height: 100%; 
-    width: 0; 
+    height: 100%;
+    width: 0;
     position: fixed;
     z-index: 1000;
     top: 0;
     right: 0;
-    background-color: #e67631; 
-    overflow-x: hidden; 
-    transition: 0.3s; 
-    padding-top: 60px; 
+    background-color: #e67631;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+
   }
   
   .sidepanel a {
@@ -215,7 +216,7 @@ body {
   }
   
   .sidepanel a:hover {
-    color: #dedede;
+    color: #f1f1f1;
   }
   
   .sidepanel .closebtn {
@@ -232,8 +233,22 @@ body {
     color: white;
     padding: 10px 15px 25px;
     border: none;
-    position: absolute;  
-    right: 20px;         
-    top: 40%;          
-    transform: translateY(-50%)
-  } 
+    position: absolute;
+    right: 20px;
+    top: 40%;
+    transform: translateY(-50%);
+  }
+  
+  
+  body.sidepanel-open {
+    margin-right: 250px;
+  }
+  
+
+  body.sidepanel-open .container {
+    margin-right: 250px;
+  }
+
+  body.sidepanel-open .openbtn {
+    display: none;
+  }
