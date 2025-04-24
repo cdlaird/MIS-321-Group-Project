@@ -16,6 +16,7 @@ namespace api.Models
         public string AuthorLast { get; set; }
         public string Genre { get; set; }
         public int PageCount { get; set; }
+        public decimal Price { get; set; }
         public string InStock { get; set; }
         public string IsDeleted { get; set; }
 
@@ -26,7 +27,7 @@ namespace api.Models
         {
             const string sql = @"
                 SELECT bookid, isbn, title, authorfirst, authorlast,
-                       genre, pagecount, instock, isdeleted
+                       genre, pagecount, price, instock, isdeleted
                   FROM book
                  WHERE isdeleted = 'n';";
             var list = new List<InventoryItem>();
@@ -44,6 +45,7 @@ namespace api.Models
                     AuthorLast  = r.GetString("authorlast"),
                     Genre       = r.GetString("genre"),
                     PageCount   = r.GetInt32("pagecount"),
+                    Price = r.GetDecimal("price"),
                     InStock     = r.GetString("instock"),
                     IsDeleted   = r.GetString("isdeleted")
                 });
@@ -55,7 +57,7 @@ namespace api.Models
         {
             const string sql = @"
                 SELECT bookid, isbn, title, authorfirst, authorlast,
-                       genre, pagecount, instock, isdeleted
+                       genre, pagecount, price, instock, isdeleted
                   FROM book
                  WHERE bookid = @id
                    AND isdeleted = 'n';";
@@ -74,6 +76,7 @@ namespace api.Models
                     AuthorLast  = r.GetString("authorlast"),
                     Genre       = r.GetString("genre"),
                     PageCount   = r.GetInt32("pagecount"),
+                    Price = r.GetDecimal("price"),
                     InStock     = r.GetString("instock"),
                     IsDeleted   = r.GetString("isdeleted")
                 };
@@ -86,10 +89,10 @@ namespace api.Models
             const string sql = @"
                 INSERT INTO book
                     (isbn, title, authorfirst, authorlast,
-                     genre, pagecount, instock, isdeleted)
+                     genre, pagecount, price, instock, isdeleted)
                 VALUES
                     (@isbn, @title, @first, @last,
-                     @genre, @pagecount, @instock, 'n');";
+                     @genre, @pagecount, @price, @instock, 'n');";
             await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
@@ -99,6 +102,7 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@last",      it.AuthorLast);
             cmd.Parameters.AddWithValue("@genre",     it.Genre);
             cmd.Parameters.AddWithValue("@pagecount", it.PageCount);
+            cmd.Parameters.AddWithValue("@price", it.Price);
             cmd.Parameters.AddWithValue("@instock",   it.InStock);
             await cmd.ExecuteNonQueryAsync();
         }
@@ -113,6 +117,7 @@ namespace api.Models
                        authorlast   = @last,
                        genre        = @genre,
                        pagecount    = @pagecount,
+                       price = @price,
                        instock      = @instock
                  WHERE bookid = @id;";
             await using var conn = new MySqlConnection(_db.cs);
@@ -124,6 +129,7 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@last",      u.AuthorLast);
             cmd.Parameters.AddWithValue("@genre",     u.Genre);
             cmd.Parameters.AddWithValue("@pagecount", u.PageCount);
+            cmd.Parameters.AddWithValue("@price", u.Price);
             cmd.Parameters.AddWithValue("@instock",   u.InStock);
             cmd.Parameters.AddWithValue("@id",        id);
             await cmd.ExecuteNonQueryAsync();

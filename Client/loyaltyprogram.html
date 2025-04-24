@@ -38,7 +38,7 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id ="customersTableBody">
         </tbody>
       </table>
       <button class="btn btn-success mb-3" onclick="openCustomerModal()">Add Customer</button>
@@ -47,14 +47,18 @@
           <div class="modal-content">
             <form id="customerForm">
               <div class="modal-header">
-                <h5 class="modal-title" id="customerModalLabel">Add/Edit Customer</h5>
+                <h5 class="modal-title">Edit Customer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                   <input type="hidden" id="customerId">
                   <div class="mb-3">
-                      <label for="customerName" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="customerName" required>
+                    <label for="customerFirst" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="customerFirst" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="customerLast" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="customerLast" required>
                   </div>
                   <div class="mb-3">
                       <label for="customerPhone" class="form-label">Phone</label>

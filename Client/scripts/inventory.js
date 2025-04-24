@@ -6,7 +6,23 @@ const modal = new bootstrap.Modal(document.getElementById("inventoryModal"));
 
 
 const form = document.getElementById("inventoryForm");
+form.addEventListener("submit", onFormSubmit);
 renderBooks();
+
+async function onFormSubmit(event){
+  event.preventDefault();
+  const id = document.getElementById("editBookId").value;
+  if(id){
+    await saveEditedBook(id);
+  }
+  else{
+    await handleAdd();
+
+  }
+  modal.hide();
+  form.reset();
+  await renderBooks();
+}
 
 async function handleAdd(){
   console.log("handleAdd function called!");
@@ -71,7 +87,51 @@ try {
   alert("Failed to add book: " + error.message);
 }}
 
-
+async function editBook(id){
+  const response=await fetch(`${url}/${id}`);
+  if(!response.ok){
+    console.error("Fetch book failed:", response.status);
+    alert("Could not load book for editing");
+    return;
+  }
+  const book =await response.json();
+   
+   document.getElementById("editBookId").value     = book.bookId;
+   document.getElementById("isbn").value           = book.isbn;
+   document.getElementById("title").value          = book.title;
+   document.getElementById("authorFirst").value    = book.authorFirst;
+   document.getElementById("authorLast").value     = book.authorLast;
+   document.getElementById("genre").value          = book.genre;
+   document.getElementById("pageCount").value      = book.pageCount;
+   document.getElementById("price").value=book.price;
+   document.getElementById("inStock").value        = book.inStock;
+ 
+   
+   modal.show();
+}
+async function saveEditedBook(id) {
+  const updated = {
+    isbn        : document.getElementById("isbn").value.trim(),
+    title       : document.getElementById("title").value.trim(),
+    authorFirst : document.getElementById("authorFirst").value.trim(),
+    authorLast  : document.getElementById("authorLast").value.trim(),
+    genre       : document.getElementById("genre").value.trim(),
+    pageCount   : parseInt(document.getElementById("pageCount").value, 10),
+    price: parseFloat(document.getElementById("price").value),
+    inStock     : document.getElementById("inStock").value.trim(),
+    isDeleted   : "n"
+  };
+  const resp = await fetch(`${url}/${id}`, {
+    method:  "PUT",
+    headers: { "Content-Type": "application/json" },
+    body:    JSON.stringify(updated)
+  });
+  if (!resp.ok) {
+    const txt = await resp.text();
+    console.error("Update failed:", resp.status, txt);
+    alert("Failed to save changes");
+  }
+}
 
 
 async function renderBooks() {
@@ -102,55 +162,6 @@ async function renderBooks() {
   });
 }
 
-
-
-// async function editBook(id) {
-//   const response = await fetch(url + "/" + id);
-//   const book = await response.json();
-
-//   editIdInput.value = book.bookId;
-//   titleInput.value = book.title;
-//   authorFirstInput.value = book.authorFirst;
-//   authorLastInput.value = book.authorLast;
-//   genreInput.value = book.genre;
-//   pageCountInput.value = book.pageCount;
-//   stockQuantityInput.value = book.inStock;
-
-//   modal.show();
-// }
-
-// async function saveEditedBook(event) {
-//   event.preventDefault();
-
-//   const id = editIdInput.value;
-
-//   const updatedBook = {
-//     ISBN: "",
-//     title: titleInput.value,
-//     authorFirst: authorInput.value.split(" ")[0],
-//     authorLast: authorInput.value.split(" ")[1],
-//     genre: genreInput.value,
-//     pageCount: parseInt(pageCountInput.value),
-//     inStock: stockQuantityInput.value,
-//     isDeleted: "n",
-//   };
-
-//   try {
-//     await fetch(url + "/" + id, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json;  charset=UTF-8",
-//       },
-//       body: JSON.stringify(updatedBook),
-//     });
-
-//     form.reset();
-//     modal.hide();
-//     await renderBooks();
-//   } catch (error) {
-//     console.error("Error saving book:", error);
-//   }
-// }
 
 async function deleteBook(id) {
   await fetch(url + "/" + id, {

@@ -92,7 +92,7 @@ namespace api.Models
         }
 
         // Update existing customer
-        public async Task UpdateAsync(int id, Customer u)
+        public async Task<bool> UpdateAsync(int id, Customer u)
         {
             const string sql = @"
                 UPDATE customer
@@ -100,7 +100,7 @@ namespace api.Models
                        custfirst = @first,
                        custlast  = @last,
                        points    = @points
-                 WHERE custid   = @id;";
+                 WHERE custid   = @id AND isdeleted ='n';";
             await using var conn = new MySqlConnection(_db.cs);
             await conn.OpenAsync();
             await using var cmd = new MySqlCommand(sql, conn);
@@ -109,7 +109,8 @@ namespace api.Models
             cmd.Parameters.AddWithValue("@last",   u.CustLast);
             cmd.Parameters.AddWithValue("@points", u.Points);
             cmd.Parameters.AddWithValue("@id",     id);
-            await cmd.ExecuteNonQueryAsync();
+              int affected = await cmd.ExecuteNonQueryAsync();
+            return affected > 0;
         }
 
         // delete a customer

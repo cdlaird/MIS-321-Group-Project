@@ -9,6 +9,7 @@ namespace api.Database
     {
         public string cs;
         public database(){
+            
             cs = Environment.GetEnvironmentVariable("DATABASE_URL");
         }
     }

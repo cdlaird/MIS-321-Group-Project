@@ -1,4 +1,4 @@
-const url = "";
+const url = "http://localhost:5219/api/auth/login";
 
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
