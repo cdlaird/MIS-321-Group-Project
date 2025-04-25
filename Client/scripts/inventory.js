@@ -130,6 +130,7 @@ async function renderBooks() {
           <strong>ISBN:</strong> ${book.isbn}<br>
           <strong>Pages:</strong> ${book.pageCount}<br>
           <strong>Price:</strong> ${book.price}<br>
+          <strong>Instock (y/n):</strong> ${book.inStock}<br>
         </p>
         <button class="btn btn-sm me-2" onclick="editBook(${book.bookId})">Edit</button>
         <button class="btn btn-sm btn-danger" onclick="deleteBook(${book.bookId})">Delete</button>
