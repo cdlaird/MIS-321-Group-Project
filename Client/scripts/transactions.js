@@ -25,6 +25,9 @@ async function handleAdd() {
   });
   console.log("Post respone", response);
 
+  destockBook(transaction.bookId); //needs bookid
+  addPoints(transaction.custId, transaction.bookId); //needs customerid
+
   const myModal = new bootstrap.Modal(
     document.getElementById("transactionModal")
   );
@@ -32,6 +35,42 @@ async function handleAdd() {
   
   document.getElementById("add-transaction-form").reset();
   modal.hide();
+}
+
+async function destockBook(id){
+  // function edits only the instock to remove the book from inventory
+  const tempURL = "http://localhost:5219/api/Inventory";
+  const response = await fetch(tempURL + "/" + id);
+  const book = await response.json();
+  book.inStock = 'n'
+  await fetch(tempURL + "/" + id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json;  charset=UTF-8",
+    },
+    body: JSON.stringify(book),
+  });
+
+}
+
+async function addPoints(custid, bookid){
+  //function arbitrarily adds points to a customer
+  const CustomerURL = "http://localhost:5219/api/Customer"
+  const BookURL = "http://localhost:5219/api/Inventory"
+
+  const customerResponse = await fetch(CustomerURL + "/" + custid);
+  const customer = await customerResponse.json();
+  const bookResponse = await fetch(BookURL + "/" + bookid);
+  const book = await bookResponse.json();
+  let points = Math.round(book.price * 1.25)
+  customer.points += points
+
+  await fetch(CustomerURL + "/" + custid, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json;   charset=UTF-8" },
+    body: JSON.stringify(customer)
+  });
+
 }
 
 async function handleDelete(transactionID) {
