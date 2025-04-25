@@ -23,7 +23,7 @@ function renderCustomers() {
     row.innerHTML = `
     <td>${cust.custID}</td>
     <td>${cust.custFirst}  ${cust.custLast}</td>
-    <td>${cust.phone}</td>
+    <td>${formatPhoneNumber(cust.phone)}</td>
     <td>${cust.points}</td>
     <td>${tierStatus(cust.points)}</td>
     <td>
@@ -144,6 +144,18 @@ function tierStatus(points){
 }
 
 
+function formatPhoneNumber(phone) {
+  // Removes non-digits and formats as (123) 456-7890
+  const cleaned = ('' + phone).replace(/\D/g, '');
+
+  if (cleaned.length === 10) {
+    return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+  } else if (cleaned.length === 7) {
+    return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+  } else {
+    return phone; // fallback to original if invalid
+  }
+}
 
 
 async function deleteCustomer(id) {

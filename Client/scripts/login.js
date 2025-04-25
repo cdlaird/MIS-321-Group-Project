@@ -1,4 +1,4 @@
-const url = "http://localhost:5219/api/auth/login";
+const url = "http://localhost:5219/api/auth/admin";
 
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -22,6 +22,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       });
   
       if (response.ok) {
+        localStorage.setItem("adminUsername", user.username);
         window.location.href = 'landing.html';
       } else {
         alert('Invalid username or password.');

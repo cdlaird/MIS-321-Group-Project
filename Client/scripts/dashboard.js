@@ -1,14 +1,54 @@
-// daily, weekly monthly sales
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadSales();
+  await loadTopAuthors();
+  await loadTopBooks();
+});
 
-// top selling
+async function loadSales() {
+  const ranges = ["daily", "weekly", "monthly"];
+  for (let range of ranges) {
+    const response = await fetch(`http://localhost:5219/api/stats/sales/${range}`);
+    const amount = await response.json();
+    document.getElementById(`${range}Sales`).textContent = `$${amount.toFixed(2)}`;
+  }
+}
 
-// top authors
+async function loadTopAuthors() {
+  try {
+    const res = await fetch("http://localhost:5219/api/stats/top-authors");
+    if (!res.ok) throw new Error(`Top authors fetch failed: ${res.status}`);
+    
+    const authors = await res.json();
+    const tbody = document.getElementById("authorsTableBody");
+    tbody.innerHTML = "";
 
-// Customer lists can be filtered by name, phone number, loyalty tier, or purchase history.
+    authors.forEach(({ author, count }) => {
+      const row = `<tr><td>${author}</td><td>${count}</td></tr>`;
+      tbody.innerHTML += row;
+    });
+  } catch (error) {
+    console.error("Error loading top authors:", error);
+  }
+}
 
-// Inventory tables can be filtered by book title, author, genre, or stock levels for ease of use.
+async function loadTopBooks() {
+  try {
+    const res = await fetch("http://localhost:5219/api/stats/top-books");
+    if (!res.ok) throw new Error(`Top books fetch failed: ${res.status}`);
 
-// Table keeps track of book title, author, genre, value, pagecount, etc
+    const books = await res.json();
+    const tbody = document.getElementById("booksTableBody");
+    tbody.innerHTML = "";
+
+    books.forEach(({ title, count }) => {
+      const row = `<tr><td>${title}</td><td>${count}</td></tr>`;
+      tbody.innerHTML += row;
+    });
+  } catch (error) {
+    console.error("Error loading top books:", error);
+  }
+}
+
 
 
 function openNav() {

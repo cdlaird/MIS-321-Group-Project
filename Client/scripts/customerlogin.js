@@ -1,4 +1,6 @@
-const url = "";
+const registerUrl = "http://localhost:5219/api/auth/register";
+const customerLoginUrl = "http://localhost:5219/api/auth/login";
+const adminLoginUrl = "http://localhost:5219/api/auth/admin";
 
 function showRegister() {
   console.log("made it to register");
@@ -16,26 +18,18 @@ const registerForm = document.getElementById("registerForm");
 registerForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  firstName = document.getElementById("firstName").value;
-  lastName = document.getElementById("lastName").value;
-  phone = document.getElementById("phone").value;
-  username = document.getElementById("newUsername").value;
-  password = document.getElementById("newPassword").value;
-  points: 0;
-  tier: "Bronze";
-
   const customerData = {
-    firstName,
-    lastName,
-    phone,
-    username,
-    password,
-    points,
-    tier,
+    custFirst: document.getElementById("firstName").value,
+    custLast: document.getElementById("lastName").value,
+    phone: document.getElementById("phone").value,
+    username: document.getElementById("newUsername").value,
+    password: document.getElementById("newPassword").value,
+    points: 0,
+    isDeleted: "n"
   };
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(registerUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,6 +38,11 @@ registerForm.addEventListener("submit", async function (e) {
     });
 
     if (!response.ok) throw new Error("User registration failed");
+    localStorage.setItem("customerName", `${customerData.custFirst} ${customerData.custLast}`);
+    localStorage.setItem("customerPhone", customerData.phone);
+    localStorage.setItem("customerPoints", customerData.points);
+    localStorage.setItem("customerTier", "Bronze");
+    localStorage.setItem("customerUsername", customerData.username);
 
     alert("Account was created successfully!");
     showLogin();
@@ -66,14 +65,16 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     return;
   }
   try{
-    const response = await fetch(url, {
+    const response = await fetch(customerLoginUrl, {
       method: "POST",
       headers: { "Content-Type" : "application/json" },
       body: JSON.stringify(user)
     }
     )
     if (response.ok) {
-      window.location.href = 'customer.html';
+      localStorage.setItem("customerUsername", user.username);
+window.location.href = "customer.html";
+
     } else {
       alert('Invalid username or password.');
     }
@@ -83,3 +84,34 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     alert('An error occurred while logging in.');
   }
 });
+const adminLoginForm = document.getElementById("adminLoginForm");
+
+if (adminLoginForm) {
+  adminLoginForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const adminUser = {
+      username: document.getElementById("username").value,
+      password: document.getElementById("password").value
+    };
+
+    try {
+      const response = await fetch(adminLoginUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(adminUser)
+      });
+
+      if (response.ok) {
+        window.location.href = "admin.html";
+      } else {
+        alert("Invalid admin login.");
+      }
+    } catch (err) {
+      console.error("Admin login error:", err);
+      alert("Failed to login as admin.");
+    }
+  });
+}
