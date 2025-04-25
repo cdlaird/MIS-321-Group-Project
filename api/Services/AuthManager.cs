@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySqlConnector;
 using api.Models;
+using api.Database;
 
 namespace api.Services
 {

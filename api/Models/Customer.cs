@@ -16,8 +16,8 @@ namespace api.Models
         public string CustLast { get; set; }
         public int Points { get; set; }
         public string IsDeleted { get; set; }
-         public string Username { get; set; }
-    public string Password { get; set; }
+         public string ? Username { get; set; }
+    public string ?Password { get; set; }
 
 
 

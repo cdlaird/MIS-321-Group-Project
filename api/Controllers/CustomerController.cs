@@ -39,10 +39,17 @@ namespace api.Controllers
         // PUT: api/customer/{id}
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Customer u)
-        {
-            await new Customer().UpdateAsync(id, u);
-            return Ok();
-        }
+{
+    if (string.IsNullOrWhiteSpace(u.CustFirst) ||
+        string.IsNullOrWhiteSpace(u.CustLast) ||
+        string.IsNullOrWhiteSpace(u.Phone))
+    {
+        return BadRequest("First name, last name, and phone are required.");
+    }
+
+    await new Customer().UpdateAsync(id, u);
+    return Ok("Customer updated successfully");
+}
 
         // DELETE: api/customer/{id}
         [HttpDelete("{id}")]
