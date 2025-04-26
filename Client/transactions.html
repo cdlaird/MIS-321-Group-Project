@@ -29,21 +29,30 @@
 <body onload="renderTransactions()">
 
   <div class="container mt-5">
-    <h2 class="text-left">Sales Transactions</h2>
-    <input type="text" id ="myInput" onkeyup="searchTable()" placeholder="Search Transactions...">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="text-left">Sales Transactions</h2>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transactionModal">
+        Add Transaction
+      </button>
+    </div>
+  
+    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search Transactions..." class="form-control mb-3">
+  
     <table class="table table-striped table-bordered" id="transactionsTable">
       <thead>
         <tr>
           <th>Transaction ID</th>
           <th>Customer ID</th>
-          <th>Book ID(s)</th>
+          <th>Book ID</th>
           <th>Transaction Date</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody id="transactionsTableBody">
+       
       </tbody>
     </table>
+  </div>
     <button class="btn" data-bs-toggle="modal" data-bs-target="#transactionModal">Add Transaction</button>
     <div id="transactions-table"></div>
   </div>
@@ -70,12 +79,45 @@
                 </div>
                 <button onclick="handleAdd()" type="button" class="btn btn-success" id="addTransactionBtn">Add Transaction</button>
               </form>
+              <hr>
+        <h5>Available Books</h5>
+        <table class="table table-sm table-bordered" id="availableBooksTable">
+          <thead>
+            <tr>
+              <th>Book ID</th>
+              <th>Title</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="availableBooksTableBody">
+          </tbody>
+        </table>
+        <hr>
+        <h5>Available Customers</h5>
+<table class="table table-sm table-bordered" id="availableCustomersTable">
+  <thead>
+    <tr>
+      <th>Customer ID</th>
+      <th>Name</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody id="availableCustomersTableBody">
+  </tbody>
+</table>
             </div>
           </div>
         </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./scripts/transactions.js"></script>
-
+  <script>
+    const transactionModal = document.getElementById('transactionModal');
+    transactionModal.addEventListener('show.bs.modal', function () {
+      renderAvailableBooks(); 
+      renderAvailableCustomers();
+    });
+  </script>
+  
 </body>
 </html>

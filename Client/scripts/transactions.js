@@ -109,6 +109,47 @@ async function renderTransactions() {
     transactionsTableBody.appendChild(row);
   });
 }
+async function renderAvailableBooks() {
+  const BookURL = "http://localhost:5219/api/Inventory"; 
+  const response = await fetch(BookURL);
+  const books = await response.json();
+
+  const availableBooksTableBody = document.getElementById("availableBooksTableBody");
+  availableBooksTableBody.innerHTML = ""; 
+
+  books.forEach((book) => {
+    if (book.inStock === 'y') { 
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${book.bookId}</td>
+        <td>${book.title}</td>
+        <td>$${book.price.toFixed(2)}</td>
+      `;
+      availableBooksTableBody.appendChild(row);
+    }
+  });
+}
+
+async function renderAvailableCustomers() {
+  const CustomerURL = "http://localhost:5219/api/Customer";
+  const response = await fetch(CustomerURL);
+  const customers = await response.json();
+
+  const availableCustomersTableBody = document.getElementById("availableCustomersTableBody");
+  availableCustomersTableBody.innerHTML = ""; // Clear table first
+
+  customers.forEach((customer) => {
+    if (customer.isDeleted === 'n') { // Only show active customers
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${customer.custID}</td>
+        <td>${customer.custFirst} ${customer.custLast}</td>
+        <td>${customer.phone}</td>
+      `;
+      availableCustomersTableBody.appendChild(row);
+    }
+  });
+}
 
 function searchTable() {
   const input = document.getElementById("myInput");
