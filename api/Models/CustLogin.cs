@@ -18,7 +18,7 @@ namespace api.Models
 
         public async Task AddLoginAsync()
         {
-            // Hash the password (simple Base64 for now)
+            // Hash the password 
             string hashed = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(Password));
 
             const string sql = @"
@@ -34,7 +34,7 @@ namespace api.Models
             await cmd.ExecuteNonQueryAsync();
         }
 
-        // Optional: Check login credentials
+        
         public async Task<bool> VerifyLoginAsync()
         {
             const string sql = "SELECT password FROM custlogin WHERE username = @username;";

@@ -10,7 +10,7 @@ namespace api.Models
     {
         private readonly database _db = new();
 
-        // Gets daily, weekly, or monthly total sales
+        
         public async Task<decimal> GetSalesByRangeAsync(string range)
         {
             string sql = @"
@@ -34,7 +34,7 @@ namespace api.Models
             return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
         }
 
-        // Top 5 authors by number of books sold
+       
        public async Task<List<object>> GetTopAuthorsAsync()
 {
     string sql = @"
@@ -61,7 +61,7 @@ namespace api.Models
 }
 
 
-        // Top 5 books by number of sales
+        
        public async Task<List<object>> GetTopBooksAsync()
 {
     string sql = @"

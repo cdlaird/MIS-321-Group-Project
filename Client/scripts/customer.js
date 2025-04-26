@@ -1,4 +1,4 @@
-//should we be updating the tier status in backend or in front end
+
 const url = "http://localhost:5219/api/Customer";
 
 let customers = [];
@@ -27,11 +27,13 @@ function renderCustomers() {
     <td>${cust.points}</td>
     <td>${tierStatus(cust.points)}</td>
     <td>
-        <button class="btn btn-sm btn-primary" 
-                onclick="openCustomerModal(${cust.custID})">
-                Edit
-                        </button>
-        </td>
+    <button class="btn btn-sm btn-primary" onclick="openCustomerModal(${cust.custID})">
+      Edit
+    </button>
+    <button class="btn btn-sm btn-danger" onclick="confirmDeleteCustomer(${cust.custID})">
+      Delete
+    </button>
+  </td>
     `;
 
     tbody.appendChild(row);
@@ -61,7 +63,7 @@ async function addCustomer() {
     isDeleted: "n"
   };
 
-  console.log("Submitting new customer:", newCustomer); // for debugging
+  console.log("Submitting new customer:", newCustomer); 
 
   const response = await fetch(url, {
     method: "POST",
@@ -145,7 +147,7 @@ function tierStatus(points){
 
 
 function formatPhoneNumber(phone) {
-  // Removes non-digits and formats as (123) 456-7890
+  
   const cleaned = ('' + phone).replace(/\D/g, '');
 
   if (cleaned.length === 10) {
@@ -153,7 +155,7 @@ function formatPhoneNumber(phone) {
   } else if (cleaned.length === 7) {
     return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
   } else {
-    return phone; // fallback to original if invalid
+    return phone; // fallback 
   }
 }
 
@@ -169,6 +171,12 @@ async function deleteCustomer(id) {
   await fetchCustomers(); 
   renderCustomers();      
 }
+function confirmDeleteCustomer(id) {
+  if (confirm("Are you sure you want to delete this customer?")) {
+    deleteCustomer(id);
+  }
+}
+
 
 function searchTable() {
   const input = document.getElementById("myInput").value.toLowerCase();

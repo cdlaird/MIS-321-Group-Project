@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   if (!username) {
     alert("You are not logged in.");
-    window.location.href = "customerlogin.html"; // ✅ redirect to login
+    window.location.href = "customerlogin.html";
     return;
   }
 
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     document.getElementById("customerGreetingName").textContent = `${customer.custFirst} ${customer.custLast}`;
     document.getElementById("customerFullName").textContent = `${customer.custFirst} ${customer.custLast}`;
-    document.getElementById("customerPhone").textContent = formatPhone(customer.phone); // ✅ formatted
+    document.getElementById("customerPhone").textContent = formatPhone(customer.phone);
     document.getElementById("customerPoints").textContent = customer.points;
 
     let tier = "Bronze";
@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   } catch (err) {
     console.error("Error loading customer info:", err);
     alert("Could not load your info.");
-    window.location.href = "customerlogin.html"; // fallback redirect
+    window.location.href = "customerlogin.html"; // fallback 
   }
 });
 
-// ✅ Phone Formatter
+
 function formatPhone(phone) {
   const cleaned = ('' + phone).replace(/\D/g, '');
   if (cleaned.length === 10) {
@@ -40,7 +40,7 @@ function formatPhone(phone) {
   return phone;
 }
 
-// ✅ Logout
+
 function logout() {
   localStorage.removeItem("customerUsername");
   window.location.href = "customerlogin.html";
